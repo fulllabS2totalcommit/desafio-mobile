@@ -42,9 +42,9 @@ Requisitos:
 
 3) Implementar árvore de categorias
 
-(Headers: “Content-Type : application/json”)
-[GET]
-https://desafio.mobfiq.com.br/StorePreference/CategoryTree
+(Headers: “Content-Type : application/json”)  
+[GET]  
+https://desafio.mobfiq.com.br/StorePreference/CategoryTree  
 
 ![alt text](http://i.imgur.com/W5GlHjz.png)
 
