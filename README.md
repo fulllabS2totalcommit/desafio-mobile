@@ -12,10 +12,10 @@ Desafio
 
 1) Criar uma vitrine, com duas colunas e utilizando os dados retornados da API
 
-API Search
-[POST]
-(Headers: “Content-Type : application/json”)
-https://desafio.mobfiq.com.br/Search/Criteria
+API Search  
+[POST]  
+(Headers: “Content-Type : application/json”)  
+https://desafio.mobfiq.com.br/Search/Criteria  
 ```
 {
   "Query" : "" (string),
