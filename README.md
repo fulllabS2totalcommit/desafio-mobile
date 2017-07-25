@@ -16,11 +16,11 @@ Desafio
 [POST]
 (Headers: “Content-Type : application/json”)
 https://desafio.mobfiq.com.br/Search/Criteria
-{
+```{
   “Query” : ”” (string),
   “Offset”: 0 (int)
   “Size”: 10 (int)
-}" 
+} ```
 
 ![alt text](http://i.imgur.com/ebjy0C6.png)
 ![alt text](http://i.imgur.com/k2w9h6S.png)
