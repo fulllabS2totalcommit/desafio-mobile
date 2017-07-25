@@ -27,16 +27,16 @@ https://desafio.mobfiq.com.br/Search/Criteria
 
  
 Requisitos:
-Executar search de 10 produtos 
-implementar “Carregar mais” ao final da lista buscando mais 10 produtos
-Exibir imagens, preço de tabela, preço final, melhor opção de parcelamento e desconto
-Implementar busca por texto.
+- Executar search de 10 produtos 
+- Implementar scroll infinito
+- Exibir imagens, preço de tabela, preço final, melhor opção de parcelamento e desconto
+- Implementar busca por texto
  
 2) Implementar Pushwoosh https://www.pushwoosh.com/
 
 Requisitos:
-[IOS] Implementar sem gerenciador de dependências
-O aplicativo deve receber pushs estando aberto ou em background
+- [iOS] Implementar sem gerenciador de dependências
+- O aplicativo deve receber pushs estando aberto ou em background
 
 3) Implementar árvore de categorias
 
@@ -47,7 +47,7 @@ https://desafio.mobfiq.com.br/StorePreference/CategoryTree
 ![alt text](http://i.imgur.com/W5GlHjz.png)
 
 
-Não é necessário usar ícones.
+** Não é necessário usar ícones.
 
 
 
