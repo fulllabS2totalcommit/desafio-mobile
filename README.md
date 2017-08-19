@@ -51,6 +51,7 @@ https://desafio.mobfiq.com.br/StorePreference/CategoryTree
 
 ** Não é necessário usar ícones.
 
+"REGRAS":
 
-
-NÃO FAÇA TUDO EM  APENAS UM COMMIT!
+1 - PRAZO: 4 DIAS PARA ENTREGAR O QUE CONSEGUIR ATÉ LÁ
+2 - NÃO FAÇA TUDO EM  APENAS UM COMMIT
