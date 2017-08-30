@@ -267,6 +267,7 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
                 
                 
             }
+                //teste
                 
            
             else {
