@@ -29,6 +29,7 @@
 		81561CE41F560A89002981DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81561CE31F560A89002981DB /* GoogleService-Info.plist */; };
 		81561CE61F561629002981DB /* Usuario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81561CE51F561629002981DB /* Usuario.swift */; };
 		81561CE81F56655B002981DB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81561CE71F56655B002981DB /* CardView.swift */; };
+		81561CEB1F56EA29002981DB /* MaisItens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81561CEA1F56EA29002981DB /* MaisItens.swift */; };
 		94F0FBAA7F658D96E61F754D /* Pods_MobFiq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCE6EDC58E9594E2A5815F8 /* Pods_MobFiq.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		81561CE31F560A89002981DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81561CE51F561629002981DB /* Usuario.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usuario.swift; sourceTree = "<group>"; };
 		81561CE71F56655B002981DB /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		81561CEA1F56EA29002981DB /* MaisItens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaisItens.swift; sourceTree = "<group>"; };
 		978333DD1EAE718AE9E6434A /* Pods-MobFiq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobFiq.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobFiq/Pods-MobFiq.release.xcconfig"; sourceTree = "<group>"; };
 		9DF0DCB64F44CAA3C86D7FA6 /* Pods_MobFiqUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobFiqUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B939BACDAF1C1345ED87E6 /* Pods_MobFiqTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobFiqTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 		81561C921F51F4F5002981DB /* MobFiq */ = {
 			isa = PBXGroup;
 			children = (
+				81561CE91F56E9E4002981DB /* Constants */,
 				81561CE31F560A89002981DB /* GoogleService-Info.plist */,
 				81561CE01F55F71A002981DB /* Protocolo */,
 				81561CD51F54C6F7002981DB /* Extension */,
@@ -237,6 +240,14 @@
 				81561CE71F56655B002981DB /* CardView.swift */,
 			);
 			name = Protocolo;
+			sourceTree = "<group>";
+		};
+		81561CE91F56E9E4002981DB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				81561CEA1F56EA29002981DB /* MaisItens.swift */,
+			);
+			name = Constants;
 			sourceTree = "<group>";
 		};
 		A36DE7518F96DFD7BECEF7BD /* Pods */ = {
@@ -542,6 +553,7 @@
 				81561CDF1F55F620002981DB /* LoginViewController.swift in Sources */,
 				81561CC91F53082F002981DB /* VitrineViewController.swift in Sources */,
 				81561C961F51F4F5002981DB /* ViewController.swift in Sources */,
+				81561CEB1F56EA29002981DB /* MaisItens.swift in Sources */,
 				81561C941F51F4F5002981DB /* AppDelegate.swift in Sources */,
 				81561CD71F54C72A002981DB /* ImageDownload.swift in Sources */,
 				81561CCC1F5308A1002981DB /* VitrineCollectionViewCell.swift in Sources */,

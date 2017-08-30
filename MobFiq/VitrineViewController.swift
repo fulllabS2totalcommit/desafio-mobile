@@ -14,22 +14,27 @@ enum selecionandoTextoParaPesquisa: Int{
     
 }
 
-class VitrineViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
+class VitrineViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var resultadoLabel : UILabel!
-     @IBOutlet weak var resultado : UILabel!
-     @IBOutlet weak var textoPesquisadoLabel : UILabel!
-     @IBOutlet weak var textoPesquisado : UILabel!
+    @IBOutlet weak var resultadoLabel  = UILabel()
+     @IBOutlet weak var resultado  = UILabel()
+     @IBOutlet weak var textoPesquisadoLabel  = UILabel()
+     @IBOutlet weak var textoPesquisado  = UILabel()
     var listaProduto = [Produto]()
+    var listaProduto2 = [Produto]()
     var identifierCell = "collectionCell"
     var identifierReuseCell = "collectionResuseCell"
     @IBOutlet weak  var collectionView : UICollectionView!
+    @IBOutlet weak var viewFundo : UIView!
+    
+    
     @IBOutlet weak var searchBar : UISearchBar!
     var listaProdutosFiltrados = [Produto]()
     var listaString = [String]()
     var listaFiltroString = [String]()
     var textFilter = 0
     var valorScroll = 10
+    //var maisItens = MaisItens.loadMaisItensFooterIdentifier
    
     //var produtos = Produto(imagem: "jhjgh", nome: "camiseta", precoTabela: "299,99", precoFinal: "290,90", parcelamento: "10 x 29,90", desconto: "10%")
 
@@ -52,37 +57,49 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         return 1
     }
+    
+    
   
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-       /* var valor = 0
-        if valorScroll < listaProduto.count {
+        var valor = 0
+        if valorScroll > listaProduto.count {
             
             valor =  listaProduto.count
         }
         else {
-            valor =  valorScroll
-        }*/
-        return listaProduto.count
+            valor = valorScroll
+        }
+        
+        return valor
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath) as! VitrineCollectionViewCell
         
-      //  let itensParaFiltro = listaFiltroString[indexPath.row]
-        let itensProduto = listaProduto[indexPath.row]
         
-        cell.nome.text = itensProduto.nome
-        cell.precoTabela.text = "R$" + String(itensProduto.precoTabela)
-        cell.imagem.loadImageUsingCacheWithString(urlString: itensProduto.imagem)
-       // cell.parcelamento.text = String(itensProduto.parcelamento) + "x  R$"
-        cell.valorDividido.text = String(itensProduto.parcelamento) + "x  R$" + String(itensProduto.valorParcelado)
-        cell.precoTotal.text = "R$" + String(itensProduto.precoFinal)
-        cell.desconto.text = String(calculoDesconto(valor1: itensProduto.precoTabela, valor2: itensProduto.precoFinal)) + "%"
-        cell.viewFundo.layer.cornerRadius = 8
-        cell.viewFundo.backgroundColor = UIColor.lightGray
+            let itensProduto = listaProduto[indexPath.row]
+            
+            cell.nome.text = itensProduto.nome
+            cell.precoTabela.text = "R$ " + String(itensProduto.precoTabela)
+            cell.imagem.loadImageUsingCacheWithString(urlString: itensProduto.imagem)
+            // cell.parcelamento.text = String(itensProduto.parcelamento) + "x  R$"
+            cell.valorDividido.text = String(itensProduto.parcelamento) + "x  R$ " + String(itensProduto.valorParcelado)
+            cell.precoTotal.text = "R$ " + String(itensProduto.precoFinal)
+            cell.desconto.text = String(calculoDesconto(valor1: itensProduto.precoTabela, valor2: itensProduto.precoFinal)) + "%"
+            cell.viewFundo.layer.cornerRadius = 8
+            cell.viewFundo.backgroundColor = UIColor.lightGray
+            
+            
+            
+            //  let itensParaFiltro = listaFiltroString[indexPath.row]
+        
+       
+            
+        
+      
         
         
         return cell
@@ -90,16 +107,35 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         
     }
     
+   /* func reload() {
+        valorScroll = 10
+        collectionView.reloadData()
+        
+        if valorScroll > 0 {
+            
+            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+        }
+    }
+    
+    func loadMore(){
+        
+        if valorScroll >= 2 {
+            
+            self.collectionView.reloadData()
+            return
+        }
+    }*/
+    
     
     func calculoDesconto(valor1 : Double, valor2 : Double) -> Int{
         
         let porcentagemTotal = 100.0
         let valor = valor1 / valor2
         
-        print(valor1)
-        print(valor2)
+       // print(valor1)
+       // print(valor2)
         
-        print(valor)
+       // print(valor)
         
         
         let valorFormatado = String(format: "%.2f", Double(valor))
@@ -116,45 +152,48 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        let lastSectionIndex = collectionView.numberOfSections - 1
+       /* let lastSectionIndex = collectionView.numberOfSections - 1
         let lastRowIndex = collectionView.numberOfItems(inSection: lastSectionIndex) - 1
         if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
             // print("this is the last cell")
-          //  var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-           // spinner.startAnimating()
+            let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+           spinner.startAnimating()
             
-           /* let refreshControl = UIRefreshControl()
-            refreshControl.tintColor = .blue
-            refreshControl.addTarget(self, action: #selector(teste), for: .valueChanged)
-            collectionView.addSubview(refreshControl)*/
-            collectionView.alwaysBounceVertical = true
+            let refreshControl = UIRefreshControl()
+          //  refreshControl.tintColor = .blue
+            //refreshControl.addTarget(self, action: #selector(teste), for: .valueChanged)
+            //collectionView.addSubview(refreshControl)
+          // refreshControl.beginRefreshing()
             
-          //  refreshControl.beginRefreshing()
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: { 
                 
               //  refreshControl.endRefreshing()
+                collectionView.alwaysBounceVertical = true
                 
-               // listaProduto.append()
+                if self.valorScroll > self.listaProduto.count {
+                    
+                    refreshControl.endRefreshing()
+                    
+                }
+                else {
+                    self.valorScroll += 10
+                    self.collectionView.reloadData()
+                }
+                /* */
                 
                 
             })
             
-           /* spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: collectionView.bounds.width, height: CGFloat(44))
-             self.collectionView.addSubview(spinner)
-             self.collectionView?.refreshControl.isHidden = false
-            self.collectionView.vi*/
+           // spinner.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: collectionView.bounds.height)
+           // self.collectionView.addSubview(refreshControl)
+     
             
-        }
+        }*/
         
     }
+   
     
-    func teste(){
-        print("tstete")
-        
-    }
-    
-   /* func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  /*  func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
 
         
@@ -165,21 +204,32 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
             let loading = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: 30))
             loading.activityIndicatorViewStyle = .gray
             
-            collectionView.addSubview(loading)
+           
             
             loading.startAnimating()
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { 
                 
                 loading.stopAnimating()
-                self.collectionView.reloadData()
                 
+                if self.valorScroll > self.listaProduto.count {
+                    
+                    loading.stopAnimating()
+                    
+                }
+                else {
+                    self.valorScroll += 10
+                    self.collectionView.reloadData()
+                }
+                
+              //  self.collectionView.reloadData()
+                               
             })
             
         }
         
-    }
-    */
+    }*/
+    
    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -193,19 +243,84 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                 withReuseIdentifier: identifierReuseCell, for: indexPath) as! VitrineCollectionReusableView
             
+           
+             cell.scroll?.startAnimating()
             
-                cell.scroll?.activityIndicatorViewStyle = .gray
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
                 
-                cell.scroll?.startAnimating()
+
+            
+            cell.scroll?.stopAnimating()
+              
+            if self.valorScroll >= self.listaProduto.count {
+                print(self.valorScroll)
+                print(self.listaProduto.count)
+                self.valorScroll += 10
+                self.buscaProdutos(size: 10)
+                
+               cell.scroll?.stopAnimating()
+              //  cell.scroll?.isHidden = true
+               // cell.semDados?.isHidden = false
+                //listaProduto.removeAll()
+                
+                
+            }
+                
+           
+            else {
+                
+                cell.scroll?.stopAnimating()
+                self.valorScroll += 10
+                self.collectionView?.reloadData()
+            }
+                
+            })
             
             
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
-                    
-                    cell.scroll?.stopAnimating()
-                    self.collectionView.reloadData()
-                    
-                })
+            /* let lastSectionIndex = collectionView.numberOfSections - 1
+             let lastRowIndex = collectionView.numberOfItems(inSection: lastSectionIndex) - 1
+             if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+             // print("this is the last cell")
             
+             cell.scroll?.startAnimating()
+                
+             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+             
+             //  refreshControl.endRefreshing()
+             //collectionView.alwaysBounceVertical = true
+             cell.scroll?.stopAnimating()
+             if self.valorScroll > self.listaProduto.count {
+             
+             cell.scroll?.stopAnimating()
+             
+             }
+             else {
+                
+                cell.scroll?.stopAnimating()
+             self.valorScroll += 10
+             self.collectionView.reloadData()
+             }
+             /* */
+             
+             
+             })
+             
+             // spinner.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: collectionView.bounds.height)
+             // self.collectionView.addSubview(refreshControl)
+             
+             
+             }*/
+            
+            
+            
+            
+            
+            
+            
+            
+        
             return cell
         default:
             //4
@@ -215,6 +330,13 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         
 
     }
+    
+    
+    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+        return CGSize.zero
+    }*/
+    
     
    /* func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastSectionIndex = tableView.numberOfSections - 1
@@ -264,28 +386,32 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             if listaProduto.count == 1 {
                 
-                resultadoLabel.text = "Resultado"
+                resultadoLabel?.text = "Resultado"
             }
             else if listaProduto.count <= 0 {
-                resultadoLabel.isHidden = true
-                textoPesquisadoLabel.isHidden = true
-                resultado.isHidden = true
-                textoPesquisado.isHidden = true
+                resultadoLabel?.isHidden = true
+                textoPesquisadoLabel?.isHidden = true
+                resultado?.isHidden = true
+                textoPesquisado?.isHidden = true
                 
             }
             
             else {
-                resultadoLabel.text = "Resultado"
+                resultadoLabel?.isHidden = false
+                textoPesquisadoLabel?.isHidden = false
+                resultado?.isHidden = false
+                textoPesquisado?.isHidden = false
+                resultadoLabel?.text = "Resultados"
             }
-            resultado.text = String(listaProduto.count)
-            textoPesquisado.text = searchText
+            resultado?.text = String(listaProduto.count)
+            textoPesquisado?.text = searchText
             
             return item.nome.lowercased().contains(searchText.lowercased())
         
         
         }
         
-        self.collectionView.reloadData()
+        self.collectionView?.reloadData()
         
 
     }
@@ -448,9 +574,13 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
                                         
                                         self.listaProduto.append( produtosModel)
 
+                                        self.listaProduto2.append(produtosModel)
+                                            
+                                            self.listaProdutosFiltrados = self.listaProduto
+                                            self.collectionView?.reloadData()
                                         
-                                        self.listaProdutosFiltrados = self.listaProduto
-                                        self.collectionView.reloadData()
+                                        
+                                      
                                         
                                     })
                                  
@@ -491,14 +621,29 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func pesquisarProduto() {
         
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        
+        searchBar.frame = CGRect(x: 0, y: 66, width: UIScreen.main.bounds.width, height: 44)
+        
+        viewFundo.frame =  CGRect(x: 0, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 37)
+        //viewFundo.backgroundColor = UIColor.red
+        
+        //self.view.addSubview(searchBar)
+        //self.view.addSubview(viewFundo)
+        
+        collectionView.frame =  CGRect(x: 0, y: 70+viewFundo.frame.size.height+searchBar.frame.size.height, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         
         
+         self.view.addSubview(searchBar)
+         self.view.addSubview(viewFundo)
         
-            searchBar.isHidden = false
-            resultadoLabel.isHidden = false
-            textoPesquisadoLabel.isHidden = false
-            resultado.isHidden = false
-            textoPesquisado.isHidden = false
+      
+            searchBar?.isHidden = false
+        viewFundo.isHidden = false
+            resultadoLabel?.isHidden = false
+            textoPesquisadoLabel?.isHidden = false
+            resultado?.isHidden = false
+            textoPesquisado?.isHidden = false
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"imageClose"), style: .plain, target: self, action: #selector(fechaPesquisa))
             
      
@@ -507,16 +652,22 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func fechaPesquisa(){
         
-        collectionView.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        collectionView?.frame = CGRect(x: 0, y: 70, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         
+        //searchBar.removeFromSuperview()
+        //viewFundo.removeFromSuperview()
+        
+        viewFundo.isHidden = true
         searchBar.isHidden = true
-        resultadoLabel.isHidden = true
-        textoPesquisadoLabel.isHidden = true
-        resultado.isHidden = true
-        textoPesquisado.isHidden = true
         
-        resultado.text = ""
-        textoPesquisado.text = ""
+        searchBar?.isHidden = true
+        resultadoLabel?.isHidden = true
+        textoPesquisadoLabel?.isHidden = true
+        resultado?.isHidden = true
+        textoPesquisado?.isHidden = true
+        
+        resultado?.text = ""
+        textoPesquisado?.text = ""
         
         
          navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"imageSearch"), style: .plain, target: self, action: #selector(pesquisarProduto))
@@ -548,12 +699,35 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        searchBar.translatesAutoresizingMaskIntoConstraints = true
+        viewFundo.translatesAutoresizingMaskIntoConstraints = true
+        
+        
 
         // Do any additional setup after loading the view.
         collectionView.dataSource = self
         searchBar.delegate = self
         
-        collectionView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        
+        
+        searchBar.frame = CGRect(x: 0, y: 66, width: UIScreen.main.bounds.width, height: 44)
+        
+        viewFundo.frame =  CGRect(x: 0, y: searchBar.frame.maxY, width: UIScreen.main.bounds.width, height: 37)
+        
+        collectionView.frame = CGRect(x: 0, y: 70, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        
+        
+        //searchBar.removeFromSuperview()
+        //viewFundo.removeFromSuperview()
+        
+        viewFundo.isHidden = true
+        searchBar.isHidden = true
+        
         navigationItem.title = "Produtos"
         self.navigationController?.navigationBar.tintColor = UIColor.init(colorLiteralRed: 128.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.1)
         navigationController?.navigationBar.barTintColor = UIColor.black

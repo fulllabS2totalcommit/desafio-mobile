@@ -10,8 +10,6 @@ import UIKit
 
 class VitrineCollectionReusableView: UICollectionReusableView {
     
-    @IBOutlet weak var nome = UILabel()
-    @IBOutlet weak var resultado = UILabel()
-    @IBOutlet weak var searchBar = UISearchBar()
+    @IBOutlet weak var semDados = UILabel()
     @IBOutlet weak var scroll = UIActivityIndicatorView()
 }

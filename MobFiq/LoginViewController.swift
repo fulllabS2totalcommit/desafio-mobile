@@ -193,6 +193,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.emailTextfield.becomeFirstResponder()
+        
         navigationItem.title = "Autenticacar"
         botaoLogar.addTarget(self, action: #selector(logar), for: .touchUpInside)
         botaoCadastrar.addTarget(self, action: #selector(cadastrar), for: .touchUpInside)

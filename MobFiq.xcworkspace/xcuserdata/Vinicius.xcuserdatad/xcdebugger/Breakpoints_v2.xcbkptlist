@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MobFiq/AlertaProtocolo.swift"
+            timestampString = "525731667.070611"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "alertasDeErro(stringTexto:titulo:mensagem:textField:controller:funcao:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MobFiq.AlertaProtocolo.__deallocating_deinit"
+                  moduleName = "MobFiq"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Vinicius/SwiftProjects/MobFiq/MobFiq/AlertaProtocolo.swift"
+                  timestampString = "525803160.777453"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MobFiq.AlertaProtocolo.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; MobFiq.AlertaProtocolo"
+                  moduleName = "MobFiq"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Vinicius/SwiftProjects/MobFiq/MobFiq/AlertaProtocolo.swift"
+                  timestampString = "525803160.78172"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "118">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MobFiq.AlertaProtocolo.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; MobFiq.AlertaProtocolo"
+                  moduleName = "MobFiq"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Vinicius/SwiftProjects/MobFiq/MobFiq/AlertaProtocolo.swift"
+                  timestampString = "525803160.784804"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MobFiq.AlertaProtocolo.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MobFiq.AlertaProtocolo&gt;"
+                  moduleName = "MobFiq"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Vinicius/SwiftProjects/MobFiq/MobFiq/AlertaProtocolo.swift"
+                  timestampString = "525803160.873126"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MobFiq.AlertaProtocolo.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MobFiq.AlertaProtocolo&gt;"
+                  moduleName = "MobFiq"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Vinicius/SwiftProjects/MobFiq/MobFiq/AlertaProtocolo.swift"
+                  timestampString = "525803160.877783"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "105">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MobFiq/VitrineViewController.swift"
+            timestampString = "525818209.836361"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
+            landmarkName = "pesquisarProduto()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MobFiq/VitrineViewController.swift"
+            timestampString = "525818209.836361"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "641"
+            endingLineNumber = "641"
+            landmarkName = "pesquisarProduto()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
