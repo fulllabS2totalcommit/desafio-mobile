@@ -97,9 +97,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
                     loading.center = self.view.center
                     loading.hidesWhenStopped = false
+                    loading.color = UIColor.red
                     
-                    
-                    loading.color = UIColor.white
+                   
                     self.view.addSubview(loading)
                     
                     loading.startAnimating()
@@ -111,7 +111,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             loading.stopAnimating()
                            
                             
-                            self.performSegue(withIdentifier: "vitrineController", sender: nil)
+                            self.performSegue(withIdentifier: "menuController", sender: nil)
                             
                         })
                         
@@ -173,10 +173,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "vitrineController" {
+        if segue.identifier == "menuController" {
             
             let nav = segue.destination as! UINavigationController
-            nav.topViewController as! VitrineViewController
+            nav.topViewController as! MenuViewController
         }
     }
 
@@ -195,10 +195,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.emailTextfield.becomeFirstResponder()
         
-        navigationItem.title = "Autenticacar"
+        navigationItem.title = "Login"
         botaoLogar.addTarget(self, action: #selector(logar), for: .touchUpInside)
+        botaoLogar.layer.cornerRadius = 10
         botaoCadastrar.addTarget(self, action: #selector(cadastrar), for: .touchUpInside)
-        
+        botaoCadastrar.layer.cornerRadius = 10
 
         // Do any additional setup after loading the view.
     }

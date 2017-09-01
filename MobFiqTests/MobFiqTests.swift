@@ -7,6 +7,7 @@
 //
 
 import XCTest
+
 @testable import MobFiq
 
 class MobFiqTests: XCTestCase {

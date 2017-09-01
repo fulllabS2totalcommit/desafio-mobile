@@ -8,8 +8,10 @@
 
 import UIKit
 import Firebase
+import Pushwoosh
+import UserNotifications
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PushNotificationDelegate {
 
     var window: UIWindow?
 
@@ -21,7 +23,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         FirebaseApp.configure()
+        PushNotificationManager.push().delegate = self
+        
+        if #available(iOS 10.0, *){
+                UNUserNotificationCenter.current().delegate = PushNotificationManager.push().notificationCenterDelegate
+            
+        }
+        
+        PushNotificationManager.push().registerForPushNotifications()
         return true
+    }
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        PushNotificationManager.push().handlePushRegistration(deviceToken)
+        
+        print("Token pushwoosh : \(deviceToken)")
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        PushNotificationManager.push().handlePushRegistrationFailure(error)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        PushNotificationManager.push().handlePushReceived(userInfo)
+        completionHandler(UIBackgroundFetchResult.noData)
+    }
+    
+    func onPushAccepted(_ pushManager: PushNotificationManager!, withNotification pushNotification: [AnyHashable : Any]!, onStart: Bool) {
+        print("Push notification accepted: \(pushNotification)" )
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

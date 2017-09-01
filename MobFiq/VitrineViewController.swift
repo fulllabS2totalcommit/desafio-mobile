@@ -90,7 +90,7 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.precoTotal.text = "R$ " + String(itensProduto.precoFinal)
             cell.desconto.text = String(calculoDesconto(valor1: itensProduto.precoTabela, valor2: itensProduto.precoFinal)) + "%"
             cell.viewFundo.layer.cornerRadius = 8
-            cell.viewFundo.backgroundColor = UIColor.lightGray
+        
             
             
             
@@ -668,7 +668,8 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         resultado?.text = ""
         textoPesquisado?.text = ""
-        
+        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
         
          navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"imageSearch"), style: .plain, target: self, action: #selector(pesquisarProduto))
     }
@@ -729,11 +730,16 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         searchBar.isHidden = true
         
         navigationItem.title = "Produtos"
-        self.navigationController?.navigationBar.tintColor = UIColor.init(colorLiteralRed: 128.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.1)
-        navigationController?.navigationBar.barTintColor = UIColor.black
+        //self.navigationController?.navigationBar.tintColor = UIColor.init(colorLiteralRed: 128.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.1)
+        //navigationController?.navigationBar.barTintColor = UIColor.black
         
         let seletorPesquisa : Selector = #selector(pesquisarProduto)
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.red
+        self.navigationController?.navigationBar.barTintColor = UIColor.black
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "imageSearch"), style: .plain, target: self, action: seletorPesquisa)
+        
         
         buscaProdutos(size: 10)
         

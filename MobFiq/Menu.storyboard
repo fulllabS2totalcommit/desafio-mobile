@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="OTw-5p-69n">
+            <objects>
+                <viewController storyboardIdentifier="menuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kvn-Er-Zhy" customClass="MenuViewController" customModule="MobFiq" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pgz-sF-7tH"/>
+                        <viewControllerLayoutGuide type="bottom" id="vq7-dk-OkM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GBD-IS-PTg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1a-5h-UFS">
+                                <rect key="frame" x="16" y="413" width="343" height="80"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="4ns-RL-mWC"/>
+                                    <constraint firstAttribute="width" constant="343" id="z9j-B3-bLD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Ver categorias">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgd-aH-TdY">
+                                <rect key="frame" x="16" y="195" width="343" height="80"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="ykd-To-uEa"/>
+                                    <constraint firstAttribute="height" constant="80" id="zH9-kW-8iw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="ver Vitrine de produtos">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="bgd-aH-TdY" firstAttribute="leading" secondItem="GBD-IS-PTg" secondAttribute="leading" constant="16" id="Dix-BT-F3q"/>
+                            <constraint firstItem="a1a-5h-UFS" firstAttribute="top" secondItem="bgd-aH-TdY" secondAttribute="bottom" constant="138" id="g2v-Fh-SQU"/>
+                            <constraint firstAttribute="trailing" secondItem="bgd-aH-TdY" secondAttribute="trailing" constant="16" id="gxk-e4-2v5"/>
+                            <constraint firstItem="a1a-5h-UFS" firstAttribute="leading" secondItem="GBD-IS-PTg" secondAttribute="leading" constant="16" id="iVk-VZ-84M"/>
+                            <constraint firstAttribute="trailing" secondItem="a1a-5h-UFS" secondAttribute="trailing" constant="16" id="oWt-Gi-Tlo"/>
+                            <constraint firstItem="vq7-dk-OkM" firstAttribute="top" secondItem="a1a-5h-UFS" secondAttribute="bottom" constant="174" id="xSa-3n-86M"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nuq-73-i2u"/>
+                    <connections>
+                        <outlet property="botaoCategorias" destination="a1a-5h-UFS" id="c4R-vQ-vP4"/>
+                        <outlet property="botaoVitrine" destination="bgd-aH-TdY" id="gfJ-Zz-OMS"/>
+                        <segue destination="jNE-aT-koI" kind="show" identifier="vitrineController" id="wfn-Vv-6Gf"/>
+                        <segue destination="KHC-ds-bFP" kind="show" identifier="categoriaController" id="RvI-Eu-7hI"/>
+                        <segue destination="7X8-0Z-c0P" kind="presentation" identifier="tabBar" id="ypm-MB-hng"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WMa-sj-K32" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="672.79999999999995" y="-178.56071964017991"/>
+        </scene>
+        <!--categoriaController-->
+        <scene sceneID="lJN-AV-1sf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Categoria" referencedIdentifier="categoriaController" id="wvR-iW-P7d" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ny2-Rt-Uie"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wZo-LR-wGv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1484" y="544"/>
+        </scene>
+        <!--tabBar-->
+        <scene sceneID="Tyk-JK-nHF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Perfil" referencedIdentifier="tabBar" id="7X8-0Z-c0P" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="v9f-ib-5WB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8bO-Wm-lRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="-755"/>
+        </scene>
+        <!--vitrineController-->
+        <scene sceneID="coz-IU-LnR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="vitrineController" id="jNE-aT-koI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L4r-Rn-ZyV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1469" y="-179"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ung-BX-a0W">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oY0-6P-x7W" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yWU-en-t3O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kvn-Er-Zhy" kind="relationship" relationship="rootViewController" id="30i-op-N5i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mVC-5l-etM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-345" y="-179"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gXA-Zc-7rZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KHC-ds-bFP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lPr-O9-jdI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wvR-iW-P7d" kind="relationship" relationship="rootViewController" id="lZi-4Y-fu8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZP3-vv-mAB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="673" y="545"/>
+        </scene>
+    </scenes>
+</document>

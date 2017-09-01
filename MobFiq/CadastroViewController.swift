@@ -65,7 +65,9 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         self.navigationController?.navigationBar.tintColor = UIColor.init(colorLiteralRed: 128.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.1)
+        
+        navigationItem.title = "Cadastro"
+         //self.navigationController?.navigationBar.tintColor = UIColor.init(colorLiteralRed: 128.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.1)
         
         pickerSexo.dataSource = self
         pickerSexo.delegate = self
@@ -81,7 +83,7 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         botaoCamera?.addTarget(self, action: #selector(tirarFoto), for: .touchUpInside)
         
         botaoCadastro.addTarget(self, action: #selector(cadastrar), for: .touchUpInside)
-
+        botaoCadastro.layer.cornerRadius = 10
 
         
         let toolBar = UIToolbar()
@@ -234,6 +236,17 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     
     func cadastrar() {
         
+        let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        loading.center = self.view.center
+        loading.hidesWhenStopped = false
+        
+        
+        loading.color = UIColor.red
+        self.view.addSubview(loading)
+        
+        loading.startAnimating()
+        
+        
         if verificaSeTemInternet() == true {
             
             if nomeTextfield.text == nil || emailTextfield.text == nil || telefoneTextfield.text == nil || senhaTextfield.text == nil {
@@ -294,15 +307,7 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                                 self.cadastroNoFirebase(uid: uid, valores: valores as [String : AnyObject])
                                 
                                 
-                                let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-                                loading.center = self.view.center
-                                loading.hidesWhenStopped = false
                                 
-                                
-                                loading.color = UIColor.white
-                                self.view.addSubview(loading)
-                                
-                                loading.startAnimating()
                                 
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: { 
                                     
