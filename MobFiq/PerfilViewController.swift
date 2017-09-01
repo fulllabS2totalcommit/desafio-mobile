@@ -17,14 +17,11 @@ class PerfilViewController: UIViewController {
     @IBOutlet weak var telefoneUsuario : UILabel!
     @IBOutlet weak var sexoUsuario : UILabel!
     @IBOutlet weak var senhaUsuario : UILabel!
+    var alertas = AlertaProtocolo()
     var usuario = [Usuario]()
     var indicator : UIActivityIndicatorView = UIActivityIndicatorView()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //buscarPerfil()
-    }
+   
     
     
     override func viewDidLoad() {
@@ -42,7 +39,7 @@ class PerfilViewController: UIViewController {
         indicator.center = self.view.center
         self.view.addSubview(indicator)
         
-       // buscarPerfil()
+        buscarPerfil()
         // Do any additional setup after loading the view.
     }
     
@@ -56,71 +53,133 @@ class PerfilViewController: UIViewController {
         
         
         
-        
-        
-        nomeUsuario.isHidden = true
-        emailUsuario.isHidden = true
-        telefoneUsuario.isHidden = true
-        sexoUsuario.isHidden = true
-        senhaUsuario.isHidden = true
-        
-        let teste = Auth.auth(app: )
-        
-        if Auth.auth().currentUser?.uid == nil {
-            print("testes")
+        if verificaSeTemInternet() == true {
+            
+            nomeUsuario.isHidden = true
+            emailUsuario.isHidden = true
+            telefoneUsuario.isHidden = true
+            sexoUsuario.isHidden = true
+            senhaUsuario.isHidden = true
+            
+            
+            
+            if Auth.auth().currentUser?.uid == nil {
+                print("testes")
+                
+            }
+            else {
+                indicator.startAnimating()
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+                    //  self.indicator.stopAnimating()
+                    
+                    
+                    
+                    
+                    let uid = Auth.auth().currentUser?.uid
+                    
+                    Database.database().reference().child("usuariosMobfiq").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                        if let dictionary = snapshot.value as? [String: Any] {
+                            
+                            let dadosUsuario = Usuario()
+                            dadosUsuario.setValuesForKeys(dictionary)
+                            self.usuario.append(dadosUsuario)
+                            
+                            
+                            self.nomeUsuario.isHidden = false
+                            self.emailUsuario.isHidden = false
+                            self.telefoneUsuario.isHidden = false
+                            self.sexoUsuario.isHidden = false
+                            self.senhaUsuario.isHidden = false
+                            
+                            
+                            
+                            
+                            if let imagemUrl = dadosUsuario.imagemPerfil {
+                                
+                                self.imagemUsuario.loadImageUsingCacheWithString(urlString: imagemUrl)
+                            }
+                            
+                            
+                            
+                            self.nomeUsuario.text = dadosUsuario.nome
+                            self.emailUsuario.text = dadosUsuario.email
+                            self.telefoneUsuario.text = dadosUsuario.telefone
+                            self.sexoUsuario.text = dadosUsuario.sexo
+                            self.senhaUsuario.text = dadosUsuario.senha
+                            
+                            
+                            if self.imagemUsuario != nil {
+                                
+                                self.indicator.stopAnimating()
+                            }
+                            
+                            
+                            
+                        }
+                    })
+                    
+                })
+                
+                
+                
+            }
+
             
         }
+        
         else {
-            indicator.startAnimating()
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
-               //  self.indicator.stopAnimating()
+            self.alertasPerfil(tipoAlerta: "semNet")
+        }
+        
+    }
+    
+    func alertasPerfil(tipoAlerta: String){
+        
+        if tipoAlerta == "erroServer" {
+            
+            let okSemDados = UIAlertAction(title: "Tentar novamente", style: .default, handler: { (UIAlertAction) in
                 
-                self.nomeUsuario.isHidden = false
-                self.emailUsuario.isHidden = false
-                self.telefoneUsuario.isHidden = false
-                self.sexoUsuario.isHidden = false
-                self.senhaUsuario.isHidden = false
                 
-                let ref = Auth.auth().createUser
-                let uid = Auth.auth().currentUser?.uid
-                
-                Database().reference().child("usuariosMobfiq").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    if let dictionary = snapshot.value as? [String: Any] {
-                        
-                        let dadosUsuario = Usuario()
-                        dadosUsuario.setValuesForKeys(dictionary)
-                        self.usuario.append(dadosUsuario)
-                        
-                        
-                        
-                        
-                        
-                        if let imagemUrl = dadosUsuario.imagemPerfil {
-                            
-                            self.imagemUsuario.loadImageUsingCacheWithString(urlString: imagemUrl)
-                        }
-                        
-                        
-                        
-                        self.nomeUsuario.text = dadosUsuario.nome
-                        self.emailUsuario.text = dadosUsuario.email
-                        self.telefoneUsuario.text = dadosUsuario.telefone
-                        self.sexoUsuario.text = dadosUsuario.sexo
-                        self.senhaUsuario.text = dadosUsuario.senha
-                        
-                        
-                        
-                        
-                    }
-                })
+                self.buscarPerfil()
                 
             })
             
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                self.voltar()
+                
+                
+            })
             
-            
+            let alertVC = UIAlertController(title: "Erro de conexão com o servidor ", message: "Tente novamente mais tarde", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
         }
+    }
+
+    
+    func verificaSeTemInternet() -> Bool {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
     }
 
     override func didReceiveMemoryWarning() {

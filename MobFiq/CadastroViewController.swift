@@ -26,7 +26,7 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     var pickerSexo = UIPickerView()
     var listaSexo : [String] = ["Masculino", "Feminino", "Prefiro não informar..."]
     @IBOutlet weak var botaoCadastro : UIButton!
-    var teste = AlertaProtocolo()
+    var alertas = AlertaProtocolo()
     
     
     
@@ -251,8 +251,8 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             
             if nomeTextfield.text == nil || emailTextfield.text == nil || telefoneTextfield.text == nil || senhaTextfield.text == nil {
                 
+                self.alertasCadastro(tipoAlerta: "faltaDados")
                 
-                teste.alertasDeErro(stringTexto: "cadastro", titulo: "Dados Incompletos", mensagem: "Falta dados para cadastrar ...", textField: nomeTextfield, controller: self)
             }
                 
             else {
@@ -267,12 +267,7 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                     
                     if error != nil{
                         
-                        var alert = UIAlertView()
-                        alert.title = "Erro ao cadastrar!!!"
-                        alert.message = "IHHHH voce ja se cadastrou, este  email ja esta em nosso banco, voce talvez tenha se cadastrado pelo facebook ou google e esta usando o mesmo email, tente logar por uma dessas contas ou utilize ou email hehe :)"
-                        alert.addButton(withTitle: "OK")
-                        alert.show()
-                        print(error)
+                       self.alertasCadastro(tipoAlerta: "usuarioExistente")
                         return
                     }
                     
@@ -331,7 +326,7 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             
         }
         else {
-            
+            self.alertasCadastro(tipoAlerta: "semNet")
             
         }
         
@@ -339,8 +334,91 @@ class CadastroViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         
         
     }
+    
+    func voltar(){
+        
+        self.dismiss(animated: true, completion: nil)
+    }
             
     
+    
+    func alertasCadastro(tipoAlerta: String){
+        
+        if tipoAlerta == "faltaDados" {
+            
+            
+            let okSemDados = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                
+                self.telefoneTextfield.text = ""
+                self.emailTextfield.text = ""
+                self.senhaTextfield.text = ""
+                self.sexoTextfield.text = ""
+                self.nomeTextfield.text = ""
+                self.nomeTextfield.becomeFirstResponder()
+                
+            })
+            
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                self.voltar()
+                
+            })
+            
+            let alertVC = UIAlertController(title: "Dados imcompletos ", message: "Refaça o cadastro", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
+        }
+            
+        else if tipoAlerta == "semNet" {
+            
+            
+            
+            let okSemDados = UIAlertAction(title: "Tentar novamente", style: .default, handler: { (UIAlertAction) in
+                
+                
+                self.cadastrar()
+                
+            })
+            
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                self.voltar()
+                
+                
+            })
+            
+            let alertVC = UIAlertController(title: "Sem Internet ", message: "Você esta sem conexão no momento", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
+        }
+            
+        else if tipoAlerta == "usuarioExistente" {
+            
+            
+            
+            let okSemDados = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                
+                
+                self.emailTextfield.text = ""
+                
+            })
+            
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                self.voltar()
+                
+                
+            })
+            
+            let alertVC = UIAlertController(title: "Email existente ", message: "Tente outro email", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
+        }
+        
+    }
     
     
     func verificaSeTemInternet() -> Bool

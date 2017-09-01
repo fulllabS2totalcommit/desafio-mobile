@@ -23,7 +23,7 @@ class ConfiguracoesViewController: UIViewController, UITableViewDelegate, UITabl
         
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = 20
         // Do any additional setup after loading the view.
         
          self.tableView.reloadData()

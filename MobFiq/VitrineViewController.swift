@@ -51,6 +51,50 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         textField.resignFirstResponder()
     
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var width = 0
+        var height = 0
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        var screenWidth = screenSize.width
+        var screenHeight = screenSize.height
+        
+        
+        if screenWidth == 375.0 && screenHeight == 667.0 {
+            
+            width = 164
+            height = 374
+            
+        }
+            
+        else if screenWidth == 414 && screenHeight == 736 {
+            
+            width = 192
+            height = 374
+            //cell.imagemcirculo.frame = CGRect(x: 7, y: 14, width: 90, height: 90)
+            // collectionView.collectionViewLayout.
+            //If iPhone is 5(s)/SE, set width and height as shown below
+        } else if screenWidth == 320 && screenHeight == 568 {
+            
+            width = 147
+            height = 374
+        }
+            
+        else if screenWidth < 320 && screenHeight < 568 {
+            
+            width = 147
+            height = 374
+        }
+        else if screenWidth > 414 && screenHeight > 736 {
+            
+            width = 192
+            height = 374
+        }
+        
+        return CGSize(width: width, height: height)
+    }
 
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -252,7 +296,8 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
                 
 
             
-            cell.scroll?.stopAnimating()
+            //cell.scroll?.stopAnimating()
+                self.buscaProdutos(size: 10)
               
             if self.valorScroll >= self.listaProduto.count {
                 print(self.valorScroll)
@@ -741,7 +786,7 @@ class VitrineViewController: UIViewController, UICollectionViewDelegate, UIColle
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "imageSearch"), style: .plain, target: self, action: seletorPesquisa)
         
         
-        buscaProdutos(size: 10)
+       // buscaProdutos(size: 10)
         
         
         

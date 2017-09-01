@@ -33,38 +33,42 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func logar() {
         
-        
-        if verificaSeTemInternet() == true {
+        if emailTextfield.text == "" || senhaTextfield.text == "" {
             
-            guard let email = emailTextfield.text, let senha = senhaTextfield.text
+            
+            self.alertasLogin(tipoAlerta: "faltaDados")
+            
+           
+            emailTextfield.text = ""
+            self.emailTextfield.becomeFirstResponder()
+            senhaTextfield.text = ""
+        }
+            
+        else {
+            
+            
+            let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            loading.center = self.view.center
+            loading.hidesWhenStopped = false
+            loading.color = UIColor.red
+            
+            
+            self.view.addSubview(loading)
+            
+            loading.startAnimating()
+            
+            if verificaSeTemInternet() == true {
                 
-                else{
-                    print("Form is not valid")
-                    return
-            }
-            
-            
-            print("teste")
-            if emailTextfield.text == nil && senhaTextfield.text == nil {
-                
-              /*  let ok = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                guard let email = emailTextfield.text, let senha = senhaTextfield.text
                     
-                    self.emailTextfield.text = ""
-                    self.senhaTextfield.text = ""
-                    self.emailTextfield.becomeFirstResponder()
-                })
+                    else{
+                        print("Form is not valid")
+                        return
+                }
                 
-                let alertVC = UIAlertController(title: "Dados Imcompletos", message: "Verfique seus dados para logar com sucesso", preferredStyle: .alert)
-                alertVC.addAction(ok)
                 
-                self.present(alertVC, animated: true, completion: nil)
+                print("teste")
                 
-                */
-                
-                alerta.alertasDeErro(stringTexto: "cadastro", titulo: "Dados Incompletos", mensagem: "Falta informar campos", textField: emailTextfield, controller: self)
-            }
-                
-            else {
                 
                 
                 
@@ -76,45 +80,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     if error != nil{
                         print(error)
                         
-                        let tentarNovamente = UIAlertAction(title: "ok", style: .default, handler: { (UIAlertAction) in
-                            
-                            self.emailTextfield.text = ""
-                            self.senhaTextfield.text = ""
-                            
-                            self.emailTextfield.becomeFirstResponder()
-                        })
-                        
-                        
-                        
-                        let alertVC = UIAlertController(title: "Dados Incorretos", message: "Digite novamente", preferredStyle: .alert)
-                        alertVC.addAction(tentarNovamente)
-                        
-                        self.present(alertVC, animated: true, completion: nil)
+                        self.alertasLogin(tipoAlerta: "usuarioExistente")
                         return
                     }
                     
-                 
-                    let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-                    loading.center = self.view.center
-                    loading.hidesWhenStopped = false
-                    loading.color = UIColor.red
                     
-                   
-                    self.view.addSubview(loading)
                     
-                    loading.startAnimating()
                     
-                    self.view.addSubview(loading)
+                    
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
                         
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
-                            
-                            loading.stopAnimating()
-                           
-                            
-                            self.performSegue(withIdentifier: "menuController", sender: nil)
-                            
-                        })
+                        loading.stopAnimating()
                         
+                        
+                        self.performSegue(withIdentifier: "menuController", sender: nil)
+                        
+                    })
+                    
                     
                     
                     
@@ -125,27 +108,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 })
             }
             
-        }
+        
         else {
             
-            let tentarNovamente = UIAlertAction(title: "Tentar Novamente", style: .default, handler: { (UIAlertAction) in
-                
-                self.logar()
-            })
-            
-            let cancelar = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
-                
-                self.dismiss(animated: true, completion: nil)
-                
-            })
-            
-            let alertVC = UIAlertController(title: "sem conexão", message: "Não há conexão com a internet", preferredStyle: .alert)
-            alertVC.addAction(tentarNovamente)
-            alertVC.addAction(cancelar)
-            self.present(alertVC, animated: true, completion: nil)
-            
+            self.alertasLogin(tipoAlerta: "semNet")
         }
+        
     
+
+        
+        }
     }
 
         
@@ -188,12 +160,72 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.pushViewController(cadastroVC, animated: true)
     }
 
+    
+  
+        
+    func alertasLogin(tipoAlerta: String){
+        
+        
+        
+        
+        if tipoAlerta == "faltaDados" {
+            
+            let okSemDados = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                
+                
+                
+                
+            })
+            
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                
+                
+                
+            })
+            
+            let alertVC = UIAlertController(title: "Dados imcompletos ", message: "Refaça o login", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
+            
+        }
+            
+            
+            
+            
+        else if tipoAlerta == "emailErrado" {
+            
+            let okSemDados = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                
+                
+                
+                
+            })
+            
+            let okErroCadastro = UIAlertAction(title: "Cancelar", style: .default, handler: { (UIAlertAction) in
+                
+                
+                
+                
+            })
+            
+            let alertVC = UIAlertController(title: "Email ou senha incorretos ", message: "Refaça o login", preferredStyle: .alert)
+            alertVC.addAction(okSemDados)
+            alertVC.addAction(okErroCadastro)
+            self.present(alertVC, animated: true, completion: nil)
+        }
+        
+        
+        
+    }
+
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.emailTextfield.becomeFirstResponder()
+        emailTextfield.becomeFirstResponder()
         
         navigationItem.title = "Login"
         botaoLogar.addTarget(self, action: #selector(logar), for: .touchUpInside)

@@ -9,21 +9,36 @@
 import UIKit
 
 
+var login = LoginViewController()
+
 protocol AlertaDelegate {
     
     func alertasDeErro(stringTexto: String, titulo : String, mensagem : String, textField: UITextField, controller: UIViewController, funcao : Void)
+    
+    
 }
 
 class AlertaProtocolo : UIViewController, AlertaDelegate {
-    func alertasDeErro(stringTexto: String, titulo: String, mensagem: String, textField: UITextField, controller: UIViewController, funcao: Void) {
-        
-        
-        
-    }
+    
+    
+    
+    func alertasDeErro(stringTexto: String, titulo: String, mensagem: String, textField: UITextField, controller: UIViewController, funcao: Void) {}
 
     
     
-  internal  func alertasDeErro(stringTexto: String, titulo: String, mensagem: String, textField: UITextField, controller: UIViewController) {
+    
+    
+    
+        
+    
+       
+    
+  
+    
+   
+    
+    
+  /*internal  func alertasDeErro(stringTexto: String, titulo: String, mensagem: String, textField: UITextField, controller: UIViewController) {
         
         
         let okSemDados = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
@@ -59,14 +74,15 @@ class AlertaProtocolo : UIViewController, AlertaDelegate {
         }
         
         
-    }
+    }*/
 
         
         
         
-    }
-
     
+}
+
+
     
     var delegate : AlertaDelegate? = nil
 
