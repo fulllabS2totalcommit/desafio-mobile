@@ -73,4 +73,4 @@ Requisitos:
 
 #### BOAS SURPRESAS:
 
-- Apesar de não está no escopo, o candidato é bem-vindo para implementar testes unitários, animações, outras funcionalidades ou qualquer outra coisa que enriqueça o projeto. Porém, é importante lembrar que isso só deve ser feito caso a entrega do escopo esteja garantido.
+- Apesar de não estar no escopo, o candidato é bem-vindo para implementar testes unitários, animações, outras funcionalidades ou qualquer outra coisa que enriqueça o projeto. Porém, é importante lembrar que isso só deve ser feito caso a entrega do escopo esteja garantida.
