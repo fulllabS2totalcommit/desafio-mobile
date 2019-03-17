@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,6 +86,7 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         TextView finalPriceProduct;
         TextView bestInstallmentProduct;
         ImageView thumbnailProduct;
+        CardView mCardView;
 
 
 
@@ -98,6 +100,7 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
             finalPriceProduct = itemView.findViewById(R.id.tv_final_price);
             bestInstallmentProduct = itemView.findViewById(R.id.tv_installment_option);
 //            thumbnailProduct = itemView.findViewById(R.id.thumbnail);
+            mCardView = itemView.findViewById(R.id.cv_item);
         }
 
     }

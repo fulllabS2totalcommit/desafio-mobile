@@ -1,8 +1,8 @@
 package bruno.myapplication;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import bruno.myapplication.Adapters.ProductCustomAdapter;
 import bruno.myapplication.api.ApiConnection;
@@ -46,12 +47,27 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Product> products;
     ProductCustomAdapter adapter;
 
+    String query="";
+    int offset=0;
+    int size=10;
+
+    boolean loadingContentFlag;
+
+    private static Context mContext;
+
+    public static Context getContext(){
+        return mContext;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        loadingContentFlag = false;
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,12 +82,44 @@ public class MainActivity extends AppCompatActivity
 
         adapter = new ProductCustomAdapter(getApplicationContext(), products);
 
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_id);
+        final RecyclerView mRecyclerView = findViewById(R.id.recyclerview_id);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-        getProducts();
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
+                if(dy > 0){ // only when scrolling up
+
+                    final int visibleThreshold = 2;
+
+                    GridLayoutManager layoutManager = (GridLayoutManager)mRecyclerView.getLayoutManager();
+                    int lastItem  = Objects.requireNonNull(layoutManager).findLastCompletelyVisibleItemPosition();
+                    int currentTotalCount = layoutManager.getItemCount();
+
+                    if(currentTotalCount <= lastItem + visibleThreshold && !loadingContentFlag){
+                        //show your loading view
+                        // load content in background
+                        products.clear();
+                        adapter.notifyDataSetChanged();
+                        offset+=10;
+                        getProducts(query, offset, size);
+                    }
+                }
+            }
+        });
+
+        getProducts(query, offset, size);
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String mQuery = intent.getStringExtra(SearchManager.QUERY);
+            query = mQuery;
+            offset=0;
+            getProducts(mQuery, offset, size);
+        }
 
     }
 
@@ -143,90 +191,99 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void getProducts() {
+    private void getProducts(String mQuery, int offset, int size) {
 
-        String url = getString(R.string.URL);
+        if(!loadingContentFlag){
+            loadingContentFlag = true;
+            String url = getString(R.string.URL);
 
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
 
-        try{
-            jsonObject.put("Offset",0);
-            jsonObject.put("Size", 10);
-            jsonArray.put(jsonObject);
-            Log.i("jsonString", jsonObject.toString());
+            try{
+                if(!mQuery.isEmpty()){
+                    jsonObject.put("Query",mQuery);
+                }
+                jsonObject.put("Offset",offset);
+                jsonObject.put("Size", size);
+                jsonArray.put(jsonObject);
+                Log.i("jsonString", jsonObject.toString());
 
-        }catch(Exception e){
+            }catch(Exception e){
 
-        }
+            }
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(@NonNull JSONObject response) {
-                try {
-                    // Get current json object
-                    JSONArray productsArray = response.getJSONArray("Products");
+                @Override
+                public void onResponse(@NonNull JSONObject response) {
+                    try {
+                        // Get current json object
+                        JSONArray productsArray = response.getJSONArray("Products");
 
-                    for (int i = 0; i < productsArray.length(); i++) {
-                        JSONObject jsonObject = productsArray.getJSONObject(i);
-                        JSONArray skus = jsonObject.getJSONArray("Skus");
-                        JSONObject skusObject = skus.getJSONObject(0);
+                        for (int i = 0; i < productsArray.length(); i++) {
+                            JSONObject jsonObject = productsArray.getJSONObject(i);
+                            JSONArray skus = jsonObject.getJSONArray("Skus");
+                            JSONObject skusObject = skus.getJSONObject(0);
 
-                        String name = skusObject.optString("Name");
-                        JSONArray sellersArray = skusObject.getJSONArray("Sellers");
-                        JSONObject sellerObject= sellersArray.getJSONObject(0);
-                        Double finalPrice = sellerObject.optDouble("Price");
-                        Double listPrice = sellerObject.optDouble("ListPrice");
-                        JSONObject bestInstallmentObject = sellerObject.getJSONObject("BestInstallment");
-                        int count = bestInstallmentObject.optInt("Count");
-                        Double value = bestInstallmentObject.optDouble("Value");
+                            String name = skusObject.optString("Name");
+                            JSONArray sellersArray = skusObject.getJSONArray("Sellers");
+                            JSONObject sellerObject= sellersArray.getJSONObject(0);
+                            Double finalPrice = sellerObject.optDouble("Price");
+                            Double listPrice = sellerObject.optDouble("ListPrice");
+                            JSONObject bestInstallmentObject = sellerObject.getJSONObject("BestInstallment");
+                            int count = bestInstallmentObject.optInt("Count");
+                            Double value = bestInstallmentObject.optDouble("Value");
 
-                        JSONArray imagesArray = skusObject.getJSONArray("Images");
-                        JSONObject imagesObject = imagesArray.getJSONObject(0);
-                        String thumbnail = imagesObject.optString("ImageUrl");
+                            JSONArray imagesArray = skusObject.getJSONArray("Images");
+                            JSONObject imagesObject = imagesArray.getJSONObject(0);
+                            String thumbnail = imagesObject.optString("ImageUrl");
 
-                        int discount = (int) ((listPrice - finalPrice)/finalPrice);
+                            int discount = (int) ((listPrice - finalPrice)/listPrice*100);
 
-                        Product product = new Product(discount,
-                                name,
-                                listPrice,
-                                finalPrice,
-                                count,
-                                value,
-                                thumbnail);
+                            Product product = new Product(discount,
+                                    name,
+                                    listPrice,
+                                    finalPrice,
+                                    count,
+                                    value,
+                                    thumbnail);
 
 //                        TODO: Obtain image thumbnail
 
-                        products.add(product);
+                            products.add(product);
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-
-                    adapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    loadingContentFlag = false;
                 }
-            }
-        }, new Response.ErrorListener() {
+            }, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(@NonNull VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Error obtaining data",Toast.LENGTH_LONG).show();
-                Log.d("errorJSON",error.toString());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                Log.d("headers", headers.toString());
-                return headers;
-            }
-        };
-        // Access the RequestQueue through your singleton class.
-        int socketTimeout = 70000;//30 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        jsObjRequest.setRetryPolicy(policy);
-        ApiConnection.getInstance(this).addToRequestQueue(jsObjRequest);
+                @Override
+                public void onErrorResponse(@NonNull VolleyError error) {
+                    Toast.makeText(getApplicationContext(),"Error obtaining data",Toast.LENGTH_LONG).show();
+                    Log.d("errorJSON",error.toString());
+                    loadingContentFlag = false;
+                }
+            })
+            {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json");
+                    Log.d("headers", headers.toString());
+                    return headers;
+                }
+            };
+            // Access the RequestQueue through your singleton class.
+            int socketTimeout = 70000;//30 seconds - change to what you want
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsObjRequest.setRetryPolicy(policy);
+            ApiConnection.getInstance(this).addToRequestQueue(jsObjRequest);
+        }
+
     }
 }
