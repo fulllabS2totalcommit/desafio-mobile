@@ -1,8 +1,10 @@
 package bruno.myapplication;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,12 +12,37 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import bruno.myapplication.Adapters.ProductCustomAdapter;
+import bruno.myapplication.api.ApiConnection;
+import bruno.myapplication.model.Product;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ArrayList<Product> products;
+    ProductCustomAdapter adapter;
+    @NonNull
+    private final Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +59,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        products= new ArrayList<>();
+
+        adapter = new ProductCustomAdapter(getApplicationContext(), products, activity);
+
 
     }
 
@@ -101,5 +133,84 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getProducts() {
+
+        String url = getString(R.string.URL);
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+
+        try{
+            jsonObject.put("Offset",0);
+            jsonObject.put("Size", 10);
+            jsonArray.put(jsonObject);
+            Log.i("jsonString", jsonObject.toString());
+
+        }catch(Exception e){
+
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(@NonNull JSONObject response) {
+                try {
+                    // Get current json object
+                    JSONArray productsArray = response.getJSONArray("Products");
+
+                    for (int i = 0; i < productsArray.length(); i++) {
+                        JSONObject jsonObject = productsArray.getJSONObject(i);
+                        JSONArray skus = jsonObject.getJSONArray("Skus");
+                        JSONObject skusObject = skus.getJSONObject(1);
+
+                        String name = skusObject.optString("Name");
+                        Double finalPrice = skusObject.optDouble("Price");
+                        Double listPrice = skusObject.optDouble("ListPrice");
+                        JSONObject bestInstallmentObject = skusObject.getJSONObject("BestInstallment");
+                        int count = bestInstallmentObject.optInt("Count");
+                        Double value = bestInstallmentObject.optDouble("Value");
+
+                        JSONArray imagesArray = skusObject.getJSONArray("Images");
+                        JSONObject imagesObject = imagesArray.getJSONObject(1);
+                        String thumbnail = imagesObject.optString("ImageUrl");
+
+                        int discount = (int) ((listPrice - finalPrice)/finalPrice);
+
+                        Product product = new Product(discount,
+                                name,
+                                listPrice,
+                                finalPrice,
+                                count,
+                                value,
+                                thumbnail);
+
+                        products.add(product);
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(@NonNull VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Error obtaining data",Toast.LENGTH_LONG).show();
+                Log.d("errorJSON",error.toString());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                Log.d("headers", headers.toString());
+                return headers;
+            }
+        };
+        // Access the RequestQueue through your singleton class.
+        ApiConnection.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 }

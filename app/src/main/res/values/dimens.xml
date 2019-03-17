@@ -11,7 +11,7 @@
     <dimen name="product_title_padding">10dp</dimen>
     <dimen name="product_title">15sp</dimen>
     <dimen name="price_padding_bottom">5dp</dimen>
-    <dimen name="price">12sp</dimen>
+    <dimen name="finalPrice">12sp</dimen>
     <dimen name="installment_width">20dp</dimen>
     <dimen name="installment_height">30dp</dimen>
     <dimen name="installment_margin_top">10dp</dimen>
