@@ -1,10 +1,12 @@
 package bruno.myapplication.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +19,14 @@ import java.util.ArrayList;
 import bruno.myapplication.R;
 import bruno.myapplication.model.Product;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-
 public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdapter.ViewHolder>{
 
     private final Context mContext;
-    private final Activity activity;
     private ArrayList<Product> mDataSet;
 
 
-    public ProductCustomAdapter(@NonNull Context context, @NonNull ArrayList<Product> data, Activity activity) {
+    public ProductCustomAdapter(@NonNull Context context, @NonNull ArrayList<Product> data) {
         this.mDataSet = data;
-        this.activity = activity;
         this.mContext = context;
     }
 
@@ -55,12 +52,17 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
 
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
-        holder.discountProduct.setText(discount);
+        holder.discountProduct.setText(String.format("%s%% \nOff", String.valueOf(discount)));
         holder.nameProduct.setText(name);
-        holder.discountProduct.setText(discount);
-        holder.listPriceProduct.setText(decimalFormat.format(listPrice));
-        holder.finalPriceProduct.setText(decimalFormat.format(finalPrice));
-        holder.bestInstallmentProduct.setText(count+"x R$"+value);
+        holder.nameProduct.setTypeface(null, Typeface.BOLD);
+        holder.listPriceProduct.setText(String.format("R$ %s", String.valueOf(decimalFormat.format(listPrice))));
+        holder.listPriceProduct.setPaintFlags(holder.listPriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.listPriceProduct.setTextColor(Color.GRAY);
+        holder.listPriceProduct.setTypeface(null, Typeface.ITALIC);
+        holder.finalPriceProduct.setText(String.format("R$ %s", String.valueOf(decimalFormat.format(finalPrice))));
+        holder.finalPriceProduct.setTextColor(Color.GREEN);
+        holder.bestInstallmentProduct.setText(String.format("%sx R$%s", String.valueOf(count), String.valueOf(decimalFormat.format(value))));
+        holder.bestInstallmentProduct.setTextColor(Color.GREEN);
 //        holder.thumbnailProduct.setImageBitmap();
 
     }
@@ -84,9 +86,12 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         TextView bestInstallmentProduct;
         ImageView thumbnailProduct;
 
+
+
         //Aca recibo un elemento en particular (una row si se quiere), y hago el binding entre los campos de este elemento y los del xml del diagnostico_item. Es medio "Generico" por asi decirlo.
         public ViewHolder(View itemView) {
             super(itemView);
+            Log.d("viewholder","viewHolder constructor");
             discountProduct = itemView.findViewById(R.id.tv_discount);
             nameProduct = itemView.findViewById(R.id.tv_product_name);
             listPriceProduct = itemView.findViewById(R.id.tv_list_price);

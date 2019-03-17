@@ -5,6 +5,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,8 +20,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -41,8 +45,6 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<Product> products;
     ProductCustomAdapter adapter;
-    @NonNull
-    private final Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,13 @@ public class MainActivity extends AppCompatActivity
 
         products= new ArrayList<>();
 
-        adapter = new ProductCustomAdapter(getApplicationContext(), products, activity);
+        adapter = new ProductCustomAdapter(getApplicationContext(), products);
+
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_id);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        mRecyclerView.setAdapter(adapter);
+
+        getProducts();
 
 
     }
@@ -163,17 +171,19 @@ public class MainActivity extends AppCompatActivity
                     for (int i = 0; i < productsArray.length(); i++) {
                         JSONObject jsonObject = productsArray.getJSONObject(i);
                         JSONArray skus = jsonObject.getJSONArray("Skus");
-                        JSONObject skusObject = skus.getJSONObject(1);
+                        JSONObject skusObject = skus.getJSONObject(0);
 
                         String name = skusObject.optString("Name");
-                        Double finalPrice = skusObject.optDouble("Price");
-                        Double listPrice = skusObject.optDouble("ListPrice");
-                        JSONObject bestInstallmentObject = skusObject.getJSONObject("BestInstallment");
+                        JSONArray sellersArray = skusObject.getJSONArray("Sellers");
+                        JSONObject sellerObject= sellersArray.getJSONObject(0);
+                        Double finalPrice = sellerObject.optDouble("Price");
+                        Double listPrice = sellerObject.optDouble("ListPrice");
+                        JSONObject bestInstallmentObject = sellerObject.getJSONObject("BestInstallment");
                         int count = bestInstallmentObject.optInt("Count");
                         Double value = bestInstallmentObject.optDouble("Value");
 
                         JSONArray imagesArray = skusObject.getJSONArray("Images");
-                        JSONObject imagesObject = imagesArray.getJSONObject(1);
+                        JSONObject imagesObject = imagesArray.getJSONObject(0);
                         String thumbnail = imagesObject.optString("ImageUrl");
 
                         int discount = (int) ((listPrice - finalPrice)/finalPrice);
@@ -186,8 +196,11 @@ public class MainActivity extends AppCompatActivity
                                 value,
                                 thumbnail);
 
+//                        TODO: Obtain image thumbnail
+
                         products.add(product);
                     }
+
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -211,6 +224,9 @@ public class MainActivity extends AppCompatActivity
             }
         };
         // Access the RequestQueue through your singleton class.
+        int socketTimeout = 70000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsObjRequest.setRetryPolicy(policy);
         ApiConnection.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 }

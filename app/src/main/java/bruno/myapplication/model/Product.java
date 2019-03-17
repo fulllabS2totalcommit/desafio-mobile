@@ -3,6 +3,7 @@ package bruno.myapplication.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 public class Product implements Parcelable {
     private int discount;
@@ -24,6 +25,8 @@ public class Product implements Parcelable {
         this.count = count;
         this.value = value;
         this.thumbnail = thumbnail;
+
+        Log.d("Product","creating product");
     }
     private Product(@NonNull Parcel in) {
         name = in.readString();

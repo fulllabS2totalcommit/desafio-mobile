@@ -3,6 +3,7 @@ package bruno.myapplication.api;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.LruCache;
 
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ public class ApiConnection {
     private ApiConnection(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
+        Log.d("API","starting apiconnection");
 
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
@@ -55,6 +57,7 @@ public class ApiConnection {
             // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(mContext.getApplicationContext());
         }
+        Log.d("API","request queue");
         return mRequestQueue;
     }
 
