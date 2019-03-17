@@ -2,15 +2,8 @@ package bruno.myapplication;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
-import android.util.JsonReader;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,19 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +33,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ObtainProducts();
     }
 
     @Override
@@ -122,73 +101,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void ObtainProducts (){
-        //Here starts the main page
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                // Create URL
-                URL desafioURL = null;
-                try {
-                    desafioURL = new URL("https://desafio.mobfiq.com.br/Search/Criteria");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                // Create connection
-                HttpsURLConnection myConnection;
-                try {
-                    myConnection =
-                            (HttpsURLConnection) Objects.requireNonNull(desafioURL).openConnection();
-                    myConnection.setRequestMethod("POST");
-                    myConnection.setRequestProperty("User-Agent", "test-app");
-                    myConnection.setRequestProperty("Content-Type",
-                            "application/json");
-
-                    JSONObject params = new JSONObject();
-                    params.put("Offset",0);
-                    params.put("Size",10);
-                    // Enable writing
-                    OutputStreamWriter wr= new OutputStreamWriter(myConnection.getOutputStream());
-                    wr.write(params.toString());
-
-                    if (myConnection.getResponseCode() == 200) {
-                        InputStream responseBody = myConnection.getInputStream();
-                        InputStreamReader responseBodyReader =
-                                new InputStreamReader(responseBody, StandardCharsets.UTF_8);
-                        readJSON(responseBodyReader);
-                    } else {
-                        // Error handling code goes here
-                    }
-                    myConnection.disconnect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private void readJSON(InputStreamReader responseBodyReader) throws IOException {
-        JsonReader jsonReader = new JsonReader(responseBodyReader);
-        jsonReader.beginObject(); // Start processing the JSON object
-        while (jsonReader.hasNext()) { // Loop through all keys
-            String key = jsonReader.nextName(); // Fetch the next key
-            if (key.equals("Size")) { // Check if desired key
-                // Fetch the value as a String
-                String value = jsonReader.nextString();
-                Log.d("Hola",value);
-                // Do something with the value
-                // ...
-
-                break; // Break out of the loop
-            } else {
-                jsonReader.skipValue(); // Skip values of other keys
-            }
-        }
-        jsonReader.close();
     }
 }
