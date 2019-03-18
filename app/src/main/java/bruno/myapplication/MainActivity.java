@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -45,24 +44,18 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Product> products;
-    ProductCustomAdapter adapter;
+    private ProductCustomAdapter adapter;
 
-    String query;
-    int offset=0;
-    int size=10;
+    private String query;
+    private int offset=0;
+    private final int size=10;
 
-    boolean loadingContentFlag;
+    private boolean loadingContentFlag;
 
-    private static Context mContext;
-
-    public static Context getContext(){
-        return mContext;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,7 +86,7 @@ public class MainActivity extends AppCompatActivity
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy > 0){ // only when scrolling up
+                if(dy > 0){
                     final int visibleThreshold = 2;
 
                     GridLayoutManager layoutManager = (GridLayoutManager)mRecyclerView.getLayoutManager();
@@ -101,8 +94,6 @@ public class MainActivity extends AppCompatActivity
                     int currentTotalCount = layoutManager.getItemCount();
 
                     if(currentTotalCount <= lastItem + visibleThreshold && !loadingContentFlag){
-                        //show your loading view
-                        // load content in background
                         offset+=10;
                         getProducts(query, offset, size);
                     }
@@ -112,8 +103,7 @@ public class MainActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String mQuery = intent.getStringExtra(SearchManager.QUERY);
-            query = mQuery;
+            query = intent.getStringExtra(SearchManager.QUERY);
             offset=0;
             products.clear();
             adapter.notifyDataSetChanged();
@@ -133,9 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        //For Searchview
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
 
@@ -151,11 +139,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_category) {
-            // Handle the camera action
             Intent categoryIntent = new Intent(this, CategoryActivity.class);
             startActivity(categoryIntent);
         }
@@ -188,11 +174,9 @@ public class MainActivity extends AppCompatActivity
             }
 
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
-
                 @Override
                 public void onResponse(@NonNull JSONObject response) {
                     try {
-                        // Get current json object
                         JSONArray productsArray = response.getJSONArray("Products");
 
                         for (int i = 0; i < productsArray.length(); i++) {
@@ -225,7 +209,6 @@ public class MainActivity extends AppCompatActivity
 
                             products.add(product);
                         }
-
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -237,25 +220,21 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onErrorResponse(@NonNull VolleyError error) {
                     Toast.makeText(getApplicationContext(),"Error obtaining data",Toast.LENGTH_LONG).show();
-                    Log.d("errorJSON",error.toString());
                     loadingContentFlag = false;
                 }
             })
             {
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
+                public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("Content-Type", "application/json");
-                    Log.d("headers", headers.toString());
                     return headers;
                 }
             };
-            // Access the RequestQueue through your singleton class.
-            int socketTimeout = 70000;//30 seconds - change to what you want
+            int socketTimeout = 70000;
             RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
             jsObjRequest.setRetryPolicy(policy);
             ApiConnection.getInstance(this).addToRequestQueue(jsObjRequest);
         }
-
     }
 }

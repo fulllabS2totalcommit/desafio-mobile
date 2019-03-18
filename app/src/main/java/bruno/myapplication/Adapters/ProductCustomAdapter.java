@@ -1,19 +1,14 @@
 package bruno.myapplication.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -23,7 +18,6 @@ import java.util.ArrayList;
 
 import bruno.myapplication.R;
 import bruno.myapplication.api.ApiConnection;
-import bruno.myapplication.helpers.ImageGetter;
 import bruno.myapplication.model.Product;
 
 public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdapter.ViewHolder>{
@@ -47,9 +41,6 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        ImageView thumbnail;
         String name = mDataSet.get(position).getName();
         double listPrice = mDataSet.get(position).getListPrice();
         double finalPrice = mDataSet.get(position).getFinalPrice();
@@ -74,7 +65,6 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         holder.bestInstallmentProduct.setText(String.format("%sx R$%s", String.valueOf(count), String.valueOf(decimalFormat.format(value))));
         holder.bestInstallmentProduct.setTextColor(Color.GREEN);
         holder.thumbnailProduct.setImageUrl(mDataSet.get(position).getThumbnail(), ApiConnection.getInstance(mContext).getImageLoader());
-
     }
 
     @Override
@@ -95,22 +85,15 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         TextView finalPriceProduct;
         TextView bestInstallmentProduct;
         NetworkImageView thumbnailProduct;
-        CardView mCardView;
 
-
-
-        //Aca recibo un elemento en particular (una row si se quiere), y hago el binding entre los campos de este elemento y los del xml del diagnostico_item. Es medio "Generico" por asi decirlo.
         public ViewHolder(View itemView) {
             super(itemView);
-            Log.d("viewholder","viewHolder constructor");
             discountProduct = itemView.findViewById(R.id.tv_discount);
             nameProduct = itemView.findViewById(R.id.tv_product_name);
             listPriceProduct = itemView.findViewById(R.id.tv_list_price);
             finalPriceProduct = itemView.findViewById(R.id.tv_final_price);
             bestInstallmentProduct = itemView.findViewById(R.id.tv_installment_option);
             thumbnailProduct = itemView.findViewById(R.id.iv_thumbnail);
-            mCardView = itemView.findViewById(R.id.cv_item);
         }
-
     }
 }

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Category implements Parcelable {
 
-    String name;
-    ArrayList<String> subcategory;
+    private String name;
+    private ArrayList<String> subcategory;
 
     public String getName() {
         return name;
@@ -22,23 +22,13 @@ public class Category implements Parcelable {
         return subcategory;
     }
 
-    public void setSubcategory(ArrayList<String> subcategory) {
-        this.subcategory = subcategory;
-    }
-
     protected Category(Parcel in) {
         name = in.readString();
         subcategory = in.readParcelable(Category.class.getClassLoader());
     }
 
-    public Category(String name, ArrayList<String> subcategory){
-        this.name = name;
-        this.subcategory = subcategory;
-    }
-
     public Category(String name){
         this.name = name;
-        //empty arraylist for subcategories
         this.subcategory = new ArrayList<>();
     }
 
