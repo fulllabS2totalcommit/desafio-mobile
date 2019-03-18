@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.LruCache;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +27,7 @@ public class ApiConnection {
         mContext = context;
         mRequestQueue = getRequestQueue();
         Log.d("API","starting apiconnection");
+
 
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
@@ -57,6 +59,7 @@ public class ApiConnection {
             // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(mContext.getApplicationContext());
         }
+        Toast.makeText(mContext,"Downloading data, please wait 1 minute maximum", Toast.LENGTH_LONG).show();
         Log.d("API","request queue");
         return mRequestQueue;
     }

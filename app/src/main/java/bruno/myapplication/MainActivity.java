@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Product> products;
     ProductCustomAdapter adapter;
 
+    String query;
     int offset=0;
     int size=10;
 
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        query = "";
+
         products= new ArrayList<>();
 
         adapter = new ProductCustomAdapter(getApplicationContext(), products);
@@ -101,25 +104,21 @@ public class MainActivity extends AppCompatActivity
                         //show your loading view
                         // load content in background
                         offset+=10;
-                        getProducts("", offset, size);
+                        getProducts(query, offset, size);
                     }
                 }
             }
         });
 
-
-
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String mQuery = intent.getStringExtra(SearchManager.QUERY);
+            query = mQuery;
             offset=0;
             products.clear();
             adapter.notifyDataSetChanged();
-            getProducts(mQuery, offset, size);
-        }else{
-            getProducts("", offset, size);
         }
-
+        getProducts(query, offset, size);
     }
 
     @Override
@@ -148,12 +147,6 @@ public class MainActivity extends AppCompatActivity
             searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(MainActivity.this.getComponentName()));
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
