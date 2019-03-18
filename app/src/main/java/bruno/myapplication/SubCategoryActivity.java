@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.Objects;
 
+import bruno.myapplication.Adapters.SubCategoryCustomAdapter;
+
 public class SubCategoryActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> simpleArrayAdapter;
+    SubCategoryCustomAdapter adapter;
     Intent intent;
     ListView listView;
 
@@ -27,8 +28,8 @@ public class SubCategoryActivity extends AppCompatActivity {
 
         if(intent.hasExtra("subcategories")){
             Log.d("Intent","it has subcategories");
-            simpleArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Objects.requireNonNull(Objects.requireNonNull(intent.getExtras()).getStringArrayList("subcategories")));
-            listView.setAdapter(simpleArrayAdapter);
+            adapter =  new SubCategoryCustomAdapter(this,  Objects.requireNonNull(Objects.requireNonNull(intent.getExtras()).getStringArrayList("subcategories")));
+            listView.setAdapter(adapter);
         }
     }
 }

@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Product> products;
     ProductCustomAdapter adapter;
 
-    String query="";
     int offset=0;
     int size=10;
 
@@ -102,20 +101,23 @@ public class MainActivity extends AppCompatActivity
                         //show your loading view
                         // load content in background
                         offset+=10;
-                        getProducts(query, offset, size);
+                        getProducts("", offset, size);
                     }
                 }
             }
         });
 
-        getProducts(query, offset, size);
+
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String mQuery = intent.getStringExtra(SearchManager.QUERY);
-            query = mQuery;
             offset=0;
+            products.clear();
+            adapter.notifyDataSetChanged();
             getProducts(mQuery, offset, size);
+        }else{
+            getProducts("", offset, size);
         }
 
     }
@@ -150,20 +152,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_search) {
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -237,8 +229,6 @@ public class MainActivity extends AppCompatActivity
                                     count,
                                     value,
                                     thumbnail);
-
-//                        TODO: Obtain image thumbnail
 
                             products.add(product);
                         }

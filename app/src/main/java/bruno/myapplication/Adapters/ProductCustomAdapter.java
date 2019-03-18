@@ -60,6 +60,9 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
         holder.discountProduct.setText(String.format("%s%% \nOff", String.valueOf(discount)));
+        if(discount==0){
+            holder.discountProduct.setVisibility(View.GONE);
+        }
         holder.nameProduct.setText(name);
         holder.nameProduct.setTypeface(null, Typeface.BOLD);
         holder.listPriceProduct.setText(String.format("R$ %s", String.valueOf(decimalFormat.format(listPrice))));
