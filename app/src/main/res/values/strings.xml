@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_search">search</string>
+    <string name="search_hint">Type a product</string>
+    <string name="URL">https://desafio.mobfiq.com.br/Search/Criteria</string>
+    <string name="categoryURL">https://desafio.mobfiq.com.br/StorePreference/CategoryTree</string>
+    <string name="product_name">Product Name</string>
+    <string name="n_off">%  off</string>
+    <string name="list_price"><strike>R$ 0.00</strike></string>
+    <string name="price_">R$ 0.00</string>
+    <string name="opcao_parcel">counX R$ finalPrice</string>
+    <string name="productImageContentDescription">Product</string>
+    <string name="categories">Categories</string>
+    <string name="category_and_subcategory_icon">Category and Subcategory Icon</string>
+</resources>
