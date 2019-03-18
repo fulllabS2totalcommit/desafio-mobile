@@ -1,9 +1,11 @@
 package bruno.myapplication.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +16,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import bruno.myapplication.R;
+import bruno.myapplication.api.ApiConnection;
+import bruno.myapplication.helpers.ImageGetter;
 import bruno.myapplication.model.Product;
 
 public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdapter.ViewHolder>{
@@ -64,7 +70,7 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         holder.finalPriceProduct.setTextColor(Color.GREEN);
         holder.bestInstallmentProduct.setText(String.format("%sx R$%s", String.valueOf(count), String.valueOf(decimalFormat.format(value))));
         holder.bestInstallmentProduct.setTextColor(Color.GREEN);
-//        holder.thumbnailProduct.setImageBitmap();
+        holder.thumbnailProduct.setImageUrl(mDataSet.get(position).getThumbnail(), ApiConnection.getInstance(mContext).getImageLoader());
 
     }
 
@@ -85,7 +91,7 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
         TextView listPriceProduct;
         TextView finalPriceProduct;
         TextView bestInstallmentProduct;
-        ImageView thumbnailProduct;
+        NetworkImageView thumbnailProduct;
         CardView mCardView;
 
 
@@ -99,7 +105,7 @@ public class ProductCustomAdapter extends RecyclerView.Adapter<ProductCustomAdap
             listPriceProduct = itemView.findViewById(R.id.tv_list_price);
             finalPriceProduct = itemView.findViewById(R.id.tv_final_price);
             bestInstallmentProduct = itemView.findViewById(R.id.tv_installment_option);
-//            thumbnailProduct = itemView.findViewById(R.id.thumbnail);
+            thumbnailProduct = itemView.findViewById(R.id.iv_thumbnail);
             mCardView = itemView.findViewById(R.id.cv_item);
         }
 

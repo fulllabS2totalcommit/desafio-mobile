@@ -2,10 +2,10 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_item"
-    android:layout_width="180dp"
-    android:layout_height="300dp"
+    android:layout_width="190dp"
+    android:layout_height="330dp"
     android:layout_margin="5dp"
-    android:elevation="8dp"
+    android:elevation="16dp"
     cardview:cardCornerRadius="4dp">
 
     <RelativeLayout
@@ -24,10 +24,10 @@
             android:layout_height="50dp"
             android:text="@string/n_off"/>
 
-        <ImageView
-            android:layout_marginTop="50dp"
+        <com.android.volley.toolbox.NetworkImageView
+            android:layout_marginTop="60dp"
             android:scaleType="fitXY"
-            android:id="@+id/img_"
+            android:id="@+id/iv_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:contentDescription="@string/productImageContentDescription" />
@@ -42,7 +42,7 @@
         <TextView
             android:textAlignment="center"
             android:layout_centerInParent="true"
-            android:layout_below="@+id/img_"
+            android:layout_below="@+id/iv_thumbnail"
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

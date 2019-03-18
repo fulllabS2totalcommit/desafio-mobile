@@ -65,9 +65,7 @@ public class ApiConnection {
         getRequestQueue().add(req);
     }
 
-// --Commented out by Inspection START (11/01/18 12:20):
-//    public ImageLoader getImageLoader() {
-//        return mImageLoader;
-//    }
-// --Commented out by Inspection STOP (11/01/18 12:20)
+    public ImageLoader getImageLoader() {
+        return mImageLoader;
+    }
 }
