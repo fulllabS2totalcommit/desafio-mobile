@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity
                 super.onScrolled(recyclerView, dx, dy);
 
                 if(dy > 0){ // only when scrolling up
-
                     final int visibleThreshold = 2;
 
                     GridLayoutManager layoutManager = (GridLayoutManager)mRecyclerView.getLayoutManager();
@@ -102,8 +101,6 @@ public class MainActivity extends AppCompatActivity
                     if(currentTotalCount <= lastItem + visibleThreshold && !loadingContentFlag){
                         //show your loading view
                         // load content in background
-                        products.clear();
-                        adapter.notifyDataSetChanged();
                         offset+=10;
                         getProducts(query, offset, size);
                     }
@@ -146,7 +143,7 @@ public class MainActivity extends AppCompatActivity
             searchView = (SearchView) searchItem.getActionView();
         }
         if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+            searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(MainActivity.this.getComponentName()));
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -172,21 +169,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_category) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent categoryIntent = new Intent(this, CategoryActivity.class);
+            startActivity(categoryIntent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -210,7 +199,7 @@ public class MainActivity extends AppCompatActivity
                 Log.i("jsonString", jsonObject.toString());
 
             }catch(Exception e){
-
+                Log.e("error", e.getMessage());
             }
 
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
