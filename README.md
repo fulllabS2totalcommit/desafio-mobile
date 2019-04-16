@@ -1,4 +1,4 @@
-# desafio-mobfiq
+# desafio-mobile
 
 First step: Fazer fork desse projeto e iniciar teu desafio! :)
 
