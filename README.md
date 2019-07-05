@@ -3,7 +3,7 @@ Things i should have done:
 - There could be a ProgressBar to show the user that there is data being downloaded.
 - I should have implemented cache in jsonRequests.
 - I should have encapsulated some methods, like jsonRequests.
-- Maybe is possible to reuse the categoryAdapter to be used in the subCategoryAdapter.
+- Maybe it is possible to reuse the categoryAdapter to be used in the subCategoryAdapter.
 
 # desafio-mobfiq
 
