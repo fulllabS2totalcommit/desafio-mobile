@@ -3,9 +3,9 @@
 First step: Fazer fork desse projeto e iniciar teu desafio! :)
 
 Usar como referência os seguintes apps:
-https://play.google.com/store/apps/details?id=com.root.polishop.Activities&hl=pt_BR
+https://play.google.com/store/apps/details?id=com.mobfiq.epocacosmeticos&hl=pt_BR
 
-https://itunes.apple.com/br/app/polishop-eletrodom%C3%A9sticos-produtos-exclusivos/id517957706?mt=8 
+https://apps.apple.com/br/app/%C3%A9poca-cosm%C3%A9ticos-e-perfumes/id1418608927
 
 
 ## Desafio
