@@ -54,15 +54,17 @@ Requisitos:
 3. O layout da tela de subcategorias é igual à tela de categorias.
 4. O título da tela da subcategoria deve ser o nome de sua categoria pai.
 
-** Não é necessário usar ícones.
+** Não é necessário usar ícones, mas será um diferencial.
 
 #### REGRAS:
 
-- PRAZO: 4 DIAS PARA ENTREGAR O QUE CONSEGUIR ATÉ LÁ
-- NÃO FAÇA TUDO EM  APENAS UM COMMIT
+- PRAZO: 4 DIAS PARA ENTREGAR O QUE CONSEGUIR ATÉ LÁ. A ENTREGA ANTES DO PRAZO SERÁ UM DIFERENCIAL.
+- NÃO FAÇA TUDO EM  APENAS UM COMMIT.
 
 #### O QUE ESTAMOS AVALIANDO:
 
+- O aplicativo funcionando, portanto nos envie uma apk.
+- Código deve ser versionado no git.
 - Código bem estruturado, com divisão de responsabilidades.
 - Uso de bibliotecas adequadas, sem a sensação de "gambiarra".
 - Código apresentável, ou seja, cuidado para não deixar código comentado, métodos vazios, prints perdidos, etc.
