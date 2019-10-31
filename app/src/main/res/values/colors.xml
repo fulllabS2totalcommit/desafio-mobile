@@ -6,8 +6,8 @@
     <color name="colorAccentDark">#303F9F</color>
 
     <!-- Cores auxiliares -->
-    <color name="primary_text">#000000</color>
-    <color name="secondary_text">#777777</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="secondary_text">#dddddd</color>
 
     <!-- Cores base -->
     <color name="preto100">#000000</color>

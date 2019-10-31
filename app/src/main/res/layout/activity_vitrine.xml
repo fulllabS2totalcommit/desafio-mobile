@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.VitrineActivity">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.felcks.desafiofulllab.ui.VitrineViewModel"/>
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:background="@color/colorPrimary"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.VitrineActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            layout="@layout/progressbar_carregamento"
+            app:isVisible="@{viewModel.loading}"
+            android:id="@+id/ll_loading"/>
+
+        <include
+            layout="@layout/layout_error_with_refresh"
+            android:id="@+id/ll_erro"
+            android:visibility="gone"
+            app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isVisible="@{!viewModel.isError &amp;&amp; !viewModel.loading}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

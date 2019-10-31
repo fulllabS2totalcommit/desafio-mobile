@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 project.ext {
     retrofitVersion = "2.6.0"
     koinVersion = "2.0.1"
@@ -14,6 +16,9 @@ project.ext {
 }
 
 android {
+    dataBinding {
+        enabled = true
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {

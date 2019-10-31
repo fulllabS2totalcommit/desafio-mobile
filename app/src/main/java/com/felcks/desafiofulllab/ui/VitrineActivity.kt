@@ -2,6 +2,8 @@ package com.felcks.desafiofulllab.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.felcks.desafiofulllab.App
@@ -9,6 +11,7 @@ import com.felcks.desafiofulllab.R
 import com.felcks.desafiofulllab.common.domain.Product
 import com.felcks.desafiofulllab.common.viewmodel.Response
 import com.felcks.desafiofulllab.common.viewmodel.Status
+import com.felcks.desafiofulllab.databinding.ActivityVitrineBinding
 import kotlinx.android.synthetic.main.activity_vitrine.*
 import org.koin.android.ext.android.inject
 
@@ -19,7 +22,17 @@ class VitrineActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vitrine)
+
+        val binding: ActivityVitrineBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_vitrine
+        )
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel.loadProductList(null, 0, 10)
+        }
 
         this.iniciaAdapter(listOf())
 
