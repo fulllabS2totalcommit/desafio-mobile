@@ -1,4 +1,4 @@
-package com.example.desafio_lemobs_mobile_gabarito.api
+package com.felcks.desafiofulllab.api
 
 import com.felcks.desafiofulllab.api_model.SearchRequest
 import com.felcks.desafiofulllab.api_model.SearchResponse

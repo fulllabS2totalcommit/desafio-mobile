@@ -2,10 +2,8 @@ package com.felcks.desafiofulllab.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.desafio_lemobs_mobile_gabarito.api.RestApi
+import com.felcks.desafiofulllab.api.RestApi
 import com.felcks.desafiofulllab.R
-import com.felcks.desafiofulllab.api_model.SearchRequest
-import com.felcks.desafiofulllab.api_model.SearchResponse
 import com.felcks.desafiofulllab.repository.SearchRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

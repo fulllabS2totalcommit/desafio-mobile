@@ -1,9 +1,7 @@
 package com.felcks.desafiofulllab.repository
 
-import com.example.desafio_lemobs_mobile_gabarito.api.IRestApi
+import com.felcks.desafiofulllab.api.IRestApi
 import com.felcks.desafiofulllab.api_model.SearchRequest
-import com.felcks.desafiofulllab.api_model.SellersResponse
-import com.felcks.desafiofulllab.api_model.SkusResponse
 import com.felcks.desafiofulllab.domain.BestInstallment
 import com.felcks.desafiofulllab.domain.Product
 
