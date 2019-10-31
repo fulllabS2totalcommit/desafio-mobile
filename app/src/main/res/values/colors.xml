@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#444444</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#3F51B5</color>
+    <color name="colorAccentDark">#303F9F</color>
+
+    <!-- Cores auxiliares -->
+    <color name="primary_text">#000000</color>
+    <color name="secondary_text">#777777</color>
+
+    <!-- Cores base -->
+    <color name="preto100">#000000</color>
+    <color name="preto088">#1F1F1F</color>
+    <color name="preto055">#777777</color>
+    <color name="preto040">#999999</color>
+    <color name="preto030">#B2B2B2</color>
+    <color name="preto020">#CCCCCC</color>
+    <color name="preto010">#E5E5E5</color>
 </resources>
