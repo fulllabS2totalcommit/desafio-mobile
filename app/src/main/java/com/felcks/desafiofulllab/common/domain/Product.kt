@@ -1,4 +1,4 @@
-package com.felcks.desafiofulllab.domain
+package com.felcks.desafiofulllab.common.domain
 
 class Product (val name: String,
                val listPrice: Double,
