@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.felcks.desafiofulllab.App
 import com.felcks.desafiofulllab.R
@@ -53,7 +54,7 @@ class VitrineActivity : AppCompatActivity() {
     private fun iniciaAdapter(listProducts: List<Product>){
 
         if(this.adapter == null){
-            val layoutManager = LinearLayoutManager(App.instance)
+            val layoutManager = GridLayoutManager(App.instance, 2)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             rv_list.layoutManager = layoutManager
             rv_list.setItemViewCacheSize(listProducts.size)

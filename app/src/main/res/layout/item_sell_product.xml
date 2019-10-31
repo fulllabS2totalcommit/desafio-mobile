@@ -1,8 +1,7 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="4dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="false"
@@ -14,21 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="8dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_foto"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
             android:textSize="16sp"
             android:maxLines="3"
             android:textColor="@android:color/white"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tv_preco"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/iv_foto"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/iv_foto" />
+            app:layout_constraintRight_toRightOf="parent" />
         
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -40,10 +46,10 @@
             android:textColor="@color/preto010"
             android:textAlignment="center"
             android:textStyle="italic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/tv_titulo"
-            app:layout_constraintRight_toLeftOf="@id/iv_foto" />
+            app:layout_constraintBottom_toTopOf="@id/tv_preco_lista"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_preco_lista"
@@ -54,10 +60,12 @@
             android:textStyle="bold"
             android:textColor="@color/preto010"
             android:textAlignment="center"
-
-            app:layout_constraintTop_toBottomOf="@id/tv_preco"
-            app:layout_constraintLeft_toLeftOf="@id/tv_titulo"
-            app:layout_constraintRight_toLeftOf="@id/iv_foto" />
+            app:layout_constraintTop_toBottomOf="@id/tv_titulo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="12dp"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_parcelamento"
@@ -69,17 +77,9 @@
             android:textAlignment="center"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/tv_preco_lista"
-            app:layout_constraintLeft_toLeftOf="@id/tv_titulo"
-            app:layout_constraintRight_toLeftOf="@id/iv_foto" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_foto"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            />
 
-        </androidx.appcompat.widget.AppCompatImageView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
