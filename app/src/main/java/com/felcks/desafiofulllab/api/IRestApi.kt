@@ -1,12 +1,13 @@
 package com.example.desafio_lemobs_mobile_gabarito.api
 
-import kotlinx.coroutines.Deferred
+import com.felcks.desafiofulllab.api_model.SearchRequest
+import com.felcks.desafiofulllab.api_model.SearchResponse
 import retrofit2.Response
-import retrofit2.http.GET
+import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface IRestApi {
 
     @POST("Search/Criteria")
-    suspend fun postResgataListagemProduto(): Response<List<Any>>
+    suspend fun postResgataListagemProduto(@Body request: SearchRequest): Response<SearchResponse>
 }
