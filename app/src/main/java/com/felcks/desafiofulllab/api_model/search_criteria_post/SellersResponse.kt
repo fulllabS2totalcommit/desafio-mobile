@@ -1,4 +1,4 @@
-package com.felcks.desafiofulllab.api_model
+package com.felcks.desafiofulllab.api_model.search_criteria_post
 
 class SellersResponse (
     val Price: Double?,

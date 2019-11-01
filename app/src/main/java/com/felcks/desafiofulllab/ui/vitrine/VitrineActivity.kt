@@ -1,4 +1,4 @@
-package com.felcks.desafiofulllab.ui
+package com.felcks.desafiofulllab.ui.vitrine
 
 import android.app.SearchManager
 import android.content.Context
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -99,5 +100,17 @@ class VitrineActivity : AppCompatActivity() {
         }
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.action_category ->{
+                //Inicia activity categoria
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

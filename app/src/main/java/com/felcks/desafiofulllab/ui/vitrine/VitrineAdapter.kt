@@ -1,6 +1,5 @@
-package com.felcks.desafiofulllab.ui
+package com.felcks.desafiofulllab.ui.vitrine
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater

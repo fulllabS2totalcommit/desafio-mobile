@@ -9,4 +9,10 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:title="Search"/>
 
+    <item android:id="@+id/action_category"
+        android:icon="@drawable/ic_category"
+        app:showAsAction="always"
+        android:title="Estoque">
+    </item>
+
 </menu>

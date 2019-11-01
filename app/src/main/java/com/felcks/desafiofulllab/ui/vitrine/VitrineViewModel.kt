@@ -1,4 +1,4 @@
-package com.felcks.desafiofulllab.ui
+package com.felcks.desafiofulllab.ui.vitrine
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData

@@ -1,7 +1,7 @@
 package com.felcks.desafiofulllab.common.repository
 
 import com.felcks.desafiofulllab.api.IRestApi
-import com.felcks.desafiofulllab.api_model.SearchRequest
+import com.felcks.desafiofulllab.api_model.search_criteria_post.SearchRequest
 import com.felcks.desafiofulllab.common.domain.BestInstallment
 import com.felcks.desafiofulllab.common.domain.Product
 
@@ -13,7 +13,8 @@ class SearchRepository(private val api: IRestApi) {
             SearchRequest(
                 query,
                 offSet,
-                size)
+                size
+            )
         )
 
         if(!response.isSuccessful)
