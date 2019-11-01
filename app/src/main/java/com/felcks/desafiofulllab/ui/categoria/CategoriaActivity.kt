@@ -2,6 +2,7 @@ package com.felcks.desafiofulllab.ui.categoria
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -10,15 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.felcks.desafiofulllab.App
 import com.felcks.desafiofulllab.R
-import com.felcks.desafiofulllab.api.RestApi
-import com.felcks.desafiofulllab.common.repository.CategoryRepository
 import com.felcks.desafiofulllab.common.viewmodel.Response
 import com.felcks.desafiofulllab.common.viewmodel.Status
 import com.felcks.desafiofulllab.databinding.ActivityCategoriaBinding
 import kotlinx.android.synthetic.main.activity_categoria.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class CategoriaActivity: AppCompatActivity(){
@@ -64,11 +60,30 @@ class CategoriaActivity: AppCompatActivity(){
             rv_list.layoutManager = layoutManager
             rv_list.setItemViewCacheSize(listCategory.size)
 
-            this.adapter = CategoriaAdapter(listCategory)
+            this.adapter = CategoriaAdapter(listCategory, categoriaClickListener)
             rv_list.adapter = adapter
         }
         else{
             this.adapter?.updateAllItens(listCategory)
+        }
+    }
+
+    private fun updateToolbarTitle(){
+
+        val tipoCategoria = viewModel.getCurrentType()
+        supportActionBar?.title = tipoCategoria?.name ?: "Categoria"
+    }
+
+    private val categoriaClickListener = object : TwoParametersClickListener {
+        override fun onClick(pos: Int, obj: Any) {
+
+            try{
+                viewModel.selectItem(pos, obj)
+                updateToolbarTitle()
+            }
+            catch (e: Throwable){
+                Toast.makeText(this@CategoriaActivity, e.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -81,5 +96,21 @@ class CategoriaActivity: AppCompatActivity(){
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onBackPressed() {
+
+        val tipoCategoria = viewModel.getCurrentType()
+        if(tipoCategoria == TipoCategoriaDTO.Categoria)
+            super.onBackPressed()
+        else{
+            try{
+                viewModel.showHomeCategory()
+                updateToolbarTitle()
+            }
+            catch (e: Throwable){
+                Toast.makeText(this@CategoriaActivity, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

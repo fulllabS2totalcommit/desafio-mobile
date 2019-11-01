@@ -41,7 +41,7 @@ class CategoriaViewModel(private val categoryRepository: CategoryRepository) : V
                     listCategoryDomain = list
                     listCategory.postValue(Response.success(
                         list.map {
-                            CategoriaDTO(it.name, null)
+                            CategoriaDTO(it.name, null, TipoCategoriaDTO.Categoria)
                         }
                     ))
                 }
@@ -54,5 +54,39 @@ class CategoriaViewModel(private val categoryRepository: CategoryRepository) : V
                 loading.set(false)
             }
         }
+    }
+
+    fun selectItem(pos: Int, obj: Any){
+
+        val categoriaDTO = obj as? CategoriaDTO
+            ?: throw Throwable("Função não implementada para esse objeto.")
+
+        if(categoriaDTO.tipo == TipoCategoriaDTO.Subcategoria)
+            throw Throwable("Pesquisa na subcategoria - função não implementada.")
+
+
+        val subCategorias = listCategoryDomain[pos].listSubCategories.map {
+            CategoriaDTO(it.name,
+                null,
+                TipoCategoriaDTO.Subcategoria)
+        }
+
+        listCategory.value = Response.success(subCategorias)
+    }
+
+    fun showHomeCategory(){
+
+        val categorias = this.listCategoryDomain.map {
+            CategoriaDTO(it.name,
+                null,
+                TipoCategoriaDTO.Categoria)
+        }
+
+        listCategory.value = Response.success(categorias)
+
+    }
+
+    fun getCurrentType(): TipoCategoriaDTO?{
+        return (this.listCategory.value?.data as? List<*>)?.filterIsInstance<CategoriaDTO>()?.first()?.tipo
     }
 }
