@@ -1,8 +1,13 @@
 package com.felcks.desafiofulllab.ui
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -59,13 +64,40 @@ class VitrineActivity : AppCompatActivity() {
             rv_list.layoutManager = layoutManager
             rv_list.setItemViewCacheSize(listProducts.size)
 
-            this.adapter = VitrineAdapter(
-                listProducts
-            )
+            this.adapter = VitrineAdapter(listProducts)
             rv_list.adapter = adapter
         }
         else{
             this.adapter?.updateAllItens(listProducts)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_search, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu?.findItem(R.id.action_search)?.actionView as SearchView).apply {
+
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false)
+
+            val queryTextListener = object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.loadProductList(query, 0, 10)
+                    return true
+                }
+            }
+
+            this.setOnQueryTextListener(queryTextListener)
+        }
+
+        return super.onCreateOptionsMenu(menu)
     }
 }

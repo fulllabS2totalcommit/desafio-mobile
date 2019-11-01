@@ -53,7 +53,8 @@ class SearchRepository(private val api: IRestApi) {
                     bestSellers.BestInstallment?.Value ?: 0.0,
                     bestSellers.BestInstallment?.Total ?: 0.0,
                     bestSellers.BestInstallment?.Rate ?: 0.0
-                )
+                ),
+                bestSkus.Images.first().ImageUrl ?: ""
             )
         }
     }
