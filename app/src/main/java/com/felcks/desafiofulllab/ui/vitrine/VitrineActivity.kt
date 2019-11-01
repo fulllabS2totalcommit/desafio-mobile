@@ -67,7 +67,7 @@ class VitrineActivity : AppCompatActivity() {
             rv_list.layoutManager = layoutManager
             rv_list.setItemViewCacheSize(listProducts.size)
 
-            this.adapter = VitrineAdapter(listProducts)
+            this.adapter = VitrineAdapter(this, listProducts)
             rv_list.adapter = adapter
         }
         else{
@@ -113,7 +113,6 @@ class VitrineActivity : AppCompatActivity() {
                 return true
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 }

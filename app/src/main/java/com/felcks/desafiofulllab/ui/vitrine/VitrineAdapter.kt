@@ -1,5 +1,6 @@
 package com.felcks.desafiofulllab.ui.vitrine
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import java.text.NumberFormat
 import java.util.*
 
 class VitrineAdapter(
+    private val activity: Activity,
     private var listProduct: List<Product>):
     RecyclerView.Adapter<VitrineAdapter.MyViewHolder>() {
 
@@ -46,10 +48,10 @@ class VitrineAdapter(
 
         holder.itemView.iv_foto.setOnClickListener {
 
-            val mBuilder: AlertDialog.Builder = AlertDialog.Builder(App.instance)
+            val mBuilder: AlertDialog.Builder = AlertDialog.Builder(activity)
             val mView = mLayoutInflater.inflate(R.layout.custom_dialog_zoom, null)
 
-            val photoView = mView.findViewById<PhotoView>(R.id.iv_foto)
+            val photoView = mView.findViewById<PhotoView>(R.id.imageView)
             photoView.setImageDrawable(holder.itemView.iv_foto.drawable)
             mBuilder.setView(mView)
             val mDialog = mBuilder.create()
