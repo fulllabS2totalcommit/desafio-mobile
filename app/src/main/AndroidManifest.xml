@@ -13,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.vitrine.VitrineActivity">
+        <activity android:name=".ui.vitrine.VitrineActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".ui.categoria.CategoriaActivity">
+        <activity android:name=".ui.categoria.CategoriaActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:label="Categorias">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
