@@ -2,6 +2,7 @@ package com.felcks.desafiofulllab.ui.vitrine
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -19,6 +20,7 @@ import com.felcks.desafiofulllab.common.domain.Product
 import com.felcks.desafiofulllab.common.viewmodel.Response
 import com.felcks.desafiofulllab.common.viewmodel.Status
 import com.felcks.desafiofulllab.databinding.ActivityVitrineBinding
+import com.felcks.desafiofulllab.ui.categoria.CategoriaActivity
 import kotlinx.android.synthetic.main.activity_vitrine.*
 import org.koin.android.ext.android.inject
 
@@ -106,7 +108,8 @@ class VitrineActivity : AppCompatActivity() {
 
         when(item.itemId){
             R.id.action_category ->{
-                //Inicia activity categoria
+                val intent = Intent(this, CategoriaActivity::class.java)
+                startActivity(intent)
                 return true
             }
         }
