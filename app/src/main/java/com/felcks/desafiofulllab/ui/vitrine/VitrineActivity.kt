@@ -21,6 +21,7 @@ import com.felcks.desafiofulllab.common.viewmodel.Response
 import com.felcks.desafiofulllab.common.viewmodel.Status
 import com.felcks.desafiofulllab.databinding.ActivityVitrineBinding
 import com.felcks.desafiofulllab.ui.categoria.CategoriaActivity
+import com.felcks.desafiofulllab.utils.InfiniteScrollListener
 import kotlinx.android.synthetic.main.activity_vitrine.*
 import org.koin.android.ext.android.inject
 
@@ -40,7 +41,7 @@ class VitrineActivity : AppCompatActivity() {
         binding.executePendingBindings()
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
-            viewModel.loadProductList(null, 0, 10)
+            viewModel.loadFirstPage(null)
         }
 
         this.iniciaAdapter(listOf())
@@ -67,11 +68,20 @@ class VitrineActivity : AppCompatActivity() {
             rv_list.layoutManager = layoutManager
             rv_list.setItemViewCacheSize(listProducts.size)
 
-            this.adapter = VitrineAdapter(this, listProducts)
+            this.adapter = VitrineAdapter(this, mutableListOf())
+            rv_list.addOnScrollListener(
+                InfiniteScrollListener({
+                    viewModel.loadMoreProducts()
+                }, layoutManager)
+            )
             rv_list.adapter = adapter
         }
         else{
-            this.adapter?.updateAllItens(listProducts)
+
+            if(viewModel.getCurrentPage() == 0)
+                this.adapter?.updateAllItens(listProducts)
+            else
+                this.adapter?.addItens(listProducts)
         }
     }
 
@@ -93,7 +103,7 @@ class VitrineActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.loadProductList(query, 0, 10)
+                    viewModel.loadFirstPage(query)
                     return true
                 }
             }

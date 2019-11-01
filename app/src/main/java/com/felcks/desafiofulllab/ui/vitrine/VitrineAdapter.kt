@@ -18,13 +18,10 @@ import java.util.*
 
 class VitrineAdapter(
     private val activity: Activity,
-    private var listProduct: List<Product>):
+    private var listProduct: MutableList<Product>):
     RecyclerView.Adapter<VitrineAdapter.MyViewHolder>() {
 
-    val mLayoutInflater: LayoutInflater = App.instance.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private var filteredListProduct = mutableListOf<Product>().apply {
-        addAll(listProduct)
-    }
+    private val mLayoutInflater: LayoutInflater = App.instance.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private val numberFormat = NumberFormat.getInstance(Locale.GERMANY).apply {
         minimumFractionDigits = 2
     }
@@ -34,11 +31,11 @@ class VitrineAdapter(
         return MyViewHolder(view)
     }
 
-    override fun getItemCount(): Int = filteredListProduct.size
+    override fun getItemCount(): Int = listProduct.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val item = filteredListProduct[position]
+        val item = listProduct[position]
 
         holder.itemView.tv_titulo.text = item.name
         holder.itemView.tv_preco.text = "R$ ${numberFormat.format(item.listPrice)}"
@@ -61,11 +58,15 @@ class VitrineAdapter(
 
     fun updateAllItens(listProducts: List<Product>){
 
-        this.listProduct = listProducts
-        this.filteredListProduct.clear()
-        this.filteredListProduct.addAll(this.listProduct)
-
+        this.listProduct = listProducts as MutableList<Product>
         notifyDataSetChanged()
+    }
+
+    fun addItens(list: List<Product>){
+
+        val initPosition = this.listProduct.size
+        this.listProduct.addAll(list)
+        notifyItemChanged(initPosition, this.listProduct.size)
     }
 
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view)

@@ -15,13 +15,18 @@ class VitrineViewModel(private val searchRepository: SearchRepository): ViewMode
     var loading = ObservableField<Boolean>(false)
     var isError = ObservableField<Boolean>(false)
 
-    init {
+    private var currentPage = 0
+    private val pageSize = 10
+    private var mQuery: String? = null
 
+    init {
         listProducts.postValue(Response.loading())
-        loadProductList(null, 0, 10)
+        loadFirstPage(null)
     }
 
-    fun loadProductList(query: String?, offSet: Int, size: Int){
+    fun getCurrentPage() = currentPage
+
+    private fun loadProductList(query: String?, offSet: Int, size: Int){
 
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -43,6 +48,31 @@ class VitrineViewModel(private val searchRepository: SearchRepository): ViewMode
             finally {
                 loading.set(false)
             }
+        }
+    }
+
+    fun loadFirstPage(query: String?){
+        currentPage = 0
+        mQuery = query
+        loadProductList(mQuery, currentPage, pageSize)
+    }
+
+    fun loadMoreProducts(){
+        currentPage += 1
+        loadMoreProductList(mQuery, currentPage * pageSize, pageSize)
+    }
+
+    private fun loadMoreProductList(query: String?, offSet: Int, size: Int){
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            try{
+                val list = searchRepository.getProductList(query, offSet, size)
+
+                if(list.isNotEmpty())
+                    listProducts.postValue(Response.success(list))
+            }
+            catch (t: Throwable){ }
         }
     }
 }
