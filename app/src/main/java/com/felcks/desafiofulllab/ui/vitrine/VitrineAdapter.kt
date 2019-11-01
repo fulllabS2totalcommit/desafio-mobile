@@ -38,8 +38,8 @@ class VitrineAdapter(
         val item = listProduct[position]
 
         holder.itemView.tv_titulo.text = item.name
-        holder.itemView.tv_preco.text = "R$ ${numberFormat.format(item.listPrice)}"
-        holder.itemView.tv_preco_lista.text = "R$ ${numberFormat.format(item.bestInstallment.total)}"
+        holder.itemView.tv_preco.text = "de R$ ${numberFormat.format(item.listPrice)}"
+        holder.itemView.tv_preco_lista.text = "por R$ ${numberFormat.format(item.bestInstallment.total)}"
         holder.itemView.tv_parcelamento.text = "${item.bestInstallment.count}x de ${numberFormat.format(item.bestInstallment.value)}"
         Picasso.with(App.instance).load(item.imagem).into(holder.itemView.iv_foto)
 
