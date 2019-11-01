@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -29,6 +31,8 @@ class VitrineActivity : AppCompatActivity() {
 
     private val viewModel: VitrineViewModel by inject()
     private var adapter: VitrineAdapter? = null
+    private var tvError: TextView? = null
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +46,14 @@ class VitrineActivity : AppCompatActivity() {
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.loadFirstPage(null)
+            searchView?.setQuery(null, false)
+            searchView?.clearFocus()
         }
 
         this.iniciaAdapter(listOf())
+
+        this.tvError = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvError?.text = resources.getString(R.string.erro_carrega_lista_produtos)
 
         viewModel.listProducts.observe(this, Observer<Response> {
                 response -> processResponse(response)
@@ -55,6 +64,12 @@ class VitrineActivity : AppCompatActivity() {
         when(response.status){
             Status.SUCCESS -> {
                iniciaAdapter((response.data as List<*>).filterIsInstance<Product>())
+            }
+            Status.EMPTY_RESPONSE -> {
+                tvError?.text = resources.getString(R.string.erro_lista_produtos_vazia)
+            }
+            Status.ERROR -> {
+                tvError?.text = resources.getString(R.string.erro_carrega_lista_produtos)
             }
             else -> {}
         }
@@ -91,10 +106,17 @@ class VitrineActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_search, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu?.findItem(R.id.action_search)?.actionView as SearchView).apply {
+        this.searchView = (menu?.findItem(R.id.action_search)?.actionView as SearchView).apply {
 
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             setIconifiedByDefault(false)
+
+            val closeButton = findViewById<ImageView>(R.id.search_close_btn)
+            closeButton.setOnClickListener {
+                setQuery(null, false)
+                clearFocus()
+                viewModel.loadFirstPage(null)
+            }
 
             val queryTextListener = object : SearchView.OnQueryTextListener {
 

@@ -36,8 +36,10 @@ class VitrineViewModel(private val searchRepository: SearchRepository): ViewMode
 
                 val list = searchRepository.getProductList(query, offSet, size)
 
-                if(list.isEmpty())
+                if(list.isEmpty()) {
                     listProducts.postValue(Response.empty())
+                    isError.set(true)
+                }
                 else
                     listProducts.postValue(Response.success(list))
             }
