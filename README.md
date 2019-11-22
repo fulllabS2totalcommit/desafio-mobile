@@ -37,7 +37,7 @@ Requisitos:
 3. Exibir imagem, preço de tabela, preço final, melhor opção de parcelamento e desconto
    - Estas informações devem ser a do SKU/Seller com o menor preço final
 4. Implementar busca por texto
-   - Deve haver uma barra de busca, onde o usuário pode procurar produtos. O texto digitado pelo usuário será enviado na propriedade ```Query```.
+   - Deve haver uma barra de busca, onde o usuário pode procurar produtos. O texto digitado pelo usuário será enviado na propriedade ```Query```. A busca deve ser iniciada após o usuário digitar o terceiro caractere.Por exemplo se quiser buscar por Cafeteira a busca iniciará quando digitar "Caf".
 
 ### 2) Implementar árvore de categorias
 
@@ -58,8 +58,9 @@ Requisitos:
 
 #### REGRAS:
 
-- PRAZO: 4 DIAS PARA ENTREGAR O QUE CONSEGUIR ATÉ LÁ. A ENTREGA ANTES DO PRAZO SERÁ UM DIFERENCIAL.
+- Tudo o que foi solicitado no desafio é fácil de ser realizado, será diferencial o que for implementado a mais ou melhoria.
 - NÃO FAÇA TUDO EM  APENAS UM COMMIT.
+- Tratamento de erros será um grande diferencial.
 
 #### O QUE ESTAMOS AVALIANDO:
 
