@@ -10,7 +10,7 @@ https://apps.apple.com/br/app/%C3%A9poca-cosm%C3%A9ticos-e-perfumes/id1418608927
 
 ## Desafio
 Em Android gerar uma .apk.
-Em React Native utilizar a versão 0.58 ou superior e gerar uma .apk
+Em React Native utilizar a versão 0.58 ou superior e gerar uma .apk.
 Não utilizar framework/libs que engessem o app como por exemplo EXPO.
 ### 1) Criar uma vitrine, com duas colunas e utilizando os dados retornados da API
 
@@ -67,6 +67,7 @@ Requisitos:
 #### O QUE ESTAMOS AVALIANDO:
 
 - O aplicativo funcionando, portanto nos envie uma apk.
+- Impelementação do Design proposto.
 - Código deve ser versionado no git.
 - Código bem estruturado, com divisão de responsabilidades.
 - Uso de bibliotecas adequadas, sem a sensação de "gambiarra".
