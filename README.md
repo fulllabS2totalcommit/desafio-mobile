@@ -56,19 +56,10 @@ Requisitos:
 3. O layout da tela de subcategorias é igual à tela de categorias.
 4. O título da tela da subcategoria deve ser o nome de sua categoria pai.
 
-** Não é necessário usar ícones, mas será um diferencial.
-
-#### REGRAS:
-
-- Tudo o que foi solicitado no desafio é fácil de ser realizado, será diferencial o que for implementado a mais ou melhoria.
-- NÃO FAÇA TUDO EM  APENAS UM COMMIT.
-- Tratamento de erros será um grande diferencial.
+** Não é necessário usar ícones.
 
 #### O QUE ESTAMOS AVALIANDO:
 
-- O aplicativo funcionando, portanto nos envie uma apk.
-- Impelementação do Design proposto.
-- Código deve ser versionado no git.
 - Código bem estruturado, com divisão de responsabilidades.
 - Uso de bibliotecas adequadas, sem a sensação de "gambiarra".
 - Código apresentável, ou seja, cuidado para não deixar código comentado, métodos vazios, prints perdidos, etc.
