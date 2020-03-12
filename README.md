@@ -8,10 +8,18 @@ https://play.google.com/store/apps/details?id=com.mobfiq.epocacosmeticos&hl=pt_B
 https://apps.apple.com/br/app/%C3%A9poca-cosm%C3%A9ticos-e-perfumes/id1418608927
 
 
-## Desafio
-Em Android gerar uma .apk.
-Em React Native utilizar a versão 0.58 ou superior e gerar uma .apk.
-Não utilizar framework/libs que engessem o app como por exemplo EXPO.
+## Entrega
+O entregável é o próprio fork do projeto do GitHub. Enviar o link do projeto por email.
+#### Caso este desafio seja para Android: 
+- Gerar uma .apk e enviar por email. 
+- Fazer o desafio em Kotlin.
+#### Caso este desafio seja para React Native: 
+- Utilizar a versão 0.58 ou superior
+- Enviar uma .apk por email
+- Não utilizar framework/libs que engessem o app como por exemplo EXPO.
+#### Caso este desafio seja para iOS: 
+- Fazer o desafio em Swift.
+
 ### 1) Criar uma vitrine, com duas colunas e utilizando os dados retornados da API
 
 API Search  
