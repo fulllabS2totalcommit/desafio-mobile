@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+project.ext {
+    retrofitVersion = "2.6.0"
+    koinVersion = "2.0.1"
+    okHttpVersion = "3.12.0"
+    kotlinCoroutineVersion = "1.0.1"
+    coroutineAdapterVersion = "0.9.2"
+    picassoVersion = "2.5.2"
+}
+
+android {
+    dataBinding {
+        enabled = true
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.felcks.desafiofulllab"
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    /* Etc */
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    /* Retrofit e Moshi */
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$project.retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$project.coroutineAdapterVersion"
+
+    /* OkHttp */
+    implementation "com.squareup.okhttp3:okhttp:$project.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$project.okHttpVersion"
+
+    /* Kotlin Coroutines */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$project.kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$project.kotlinCoroutineVersion"
+
+    /* Koin */
+    implementation "org.koin:koin-android:$project.koinVersion"
+    implementation "org.koin:koin-androidx-scope:$project.koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$project.koinVersion"
+
+    /* Picasso */
+    implementation "com.squareup.picasso:picasso:$project.picassoVersion"
+
+    /* Zoom */
+    implementation 'com.github.chrisbanes:PhotoView:2.1.2'
+}
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+    mavenCentral()
+}
+android {
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+}
