@@ -7,17 +7,17 @@ Things i should have done:
 
 # desafio-mobfiq
 
-First step: Fazer fork desse projeto e iniciar teu desafio! :)
+First step: Do fork from this project and start the challenge! :)
 
-Usar como referência os seguintes apps:
+Use these apps as a reference:
 https://play.google.com/store/apps/details?id=com.root.polishop.Activities&hl=pt_BR
 
 https://itunes.apple.com/br/app/polishop-eletrodom%C3%A9sticos-produtos-exclusivos/id517957706?mt=8 
 
 
-## Desafio
+## Challenge
 
-### 1) Criar uma vitrine, com duas colunas e utilizando os dados retornados da API
+### 1) Create a "vitrine", with two columns and using the data returned from the API
 
 API Search  
 [POST]  
@@ -46,7 +46,7 @@ Requisitos:
 4. Implementar busca por texto
    - Deve haver uma barra de busca, onde o usuário pode procurar produtos. O texto digitado pelo usuário será enviado na propriedade ```Query```.
 
-### 2) Implementar árvore de categorias
+### 2) implement category tree
 
 (Headers: “Content-Type : application/json”)  
 [GET]  
@@ -63,12 +63,12 @@ Requisitos:
 
 ** Não é necessário usar ícones.
 
-#### REGRAS:
+#### Rules:
 
 - PRAZO: 4 DIAS PARA ENTREGAR O QUE CONSEGUIR ATÉ LÁ
 - NÃO FAÇA TUDO EM  APENAS UM COMMIT
 
-#### O QUE ESTAMOS AVALIANDO:
+#### What we are looking for:
 
 - Código bem estruturado, com divisão de responsabilidades.
 - Uso de bibliotecas adequadas, sem a sensação de "gambiarra".
@@ -78,6 +78,6 @@ Requisitos:
 - Boa usabilidade e noção de estética.
 - Mensagens de commit relevantes.
 
-#### BOAS SURPRESAS:
+#### Good surprises:
 
 - Apesar de não estar no escopo, o candidato é bem-vindo para implementar testes unitários, animações, outras funcionalidades ou qualquer outra coisa que enriqueça o projeto. Porém, é importante lembrar que isso só deve ser feito caso a entrega do escopo esteja garantida.
